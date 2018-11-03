@@ -6,12 +6,14 @@ import Main from './components/Main';
 import Create from './components/Create';
 import List from './components/List';
 import Edit from './components/Edit';
+import Time from './components/Time';
 
 render(
     <Router history={browserHistory}>
         <Route path="/" component={Main} >
             <Route path="/create" component={Create} />
             <Route path="/list" component={List} />
+            <Route path="/time" component={Time} />
             <Route path="/todos/:id/edit" component={Edit} />
         </Route>
     </Router>,

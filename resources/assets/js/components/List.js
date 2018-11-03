@@ -6,23 +6,66 @@ import TableRow from './TableRow';
 class List extends Component {
     constructor(props) {
         super(props);
-        this.state = { data: '' }
+        this.state = {
+            data: '',
+            page: 0,
+            nextUrl: null,
+            prevUrl: null,
+        }
     }
     componentDidMount() {
         axios.get('http://localhost:8000/api/todos')
             .then(response => {
                 console.log('todos_list')
                 console.log('data:' + JSON.stringify(response.data))
-                this.setState({ data: response.data })
+                this.setState({
+                    data: response.data.data,
+                    nextUrl: response.data.next_page_url,
+                    prevUrl: response.data.prev_page_url,
+                })
             })
             .catch(function (error) {
                 console.log(error)
             })
     }
+
+    nextPage() {
+        axios.get(this.state.nextUrl)
+            .then(response => {
+                console.log('todos_list')
+                console.log('data:' + JSON.stringify(response.data))
+                this.setState({
+                    data: response.data.data,
+                    nextUrl: response.data.next_page_url,
+                    prevUrl: response.data.prev_page_url,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
+    prevPage() {
+        axios.get(this.state.prevUrl)
+            .then(response => {
+                console.log('todos_list')
+                console.log('data:' + JSON.stringify(response.data))
+                this.setState({
+                    data: response.data.data,
+                    nextUrl: response.data.next_page_url,
+                    prevUrl: response.data.prev_page_url,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
     tabRow() {
         if (this.state.data instanceof Array) {
             return this.state.data.map(function (object, i) {
-                return <TableRow obj={object} key={i} />
+                return <TableRow
+                    obj={object} key={i} />
             })
         }
     }

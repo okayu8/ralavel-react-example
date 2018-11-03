@@ -4,13 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ToDo;
+use DB;
 
 class ToDosController extends Controller
 {
     function index(){
-        $todos = ToDo::all();
-        error_log('$todos:' .$todos);
+        //$todos = ToDo::all() -> paginate(5);
+        $todos = DB::table('to_dos') -> paginate(5);
         return response()->json($todos);
+        /* $todoData = [];
+        
+        Todo::all()->chunk(5, function($todos) {
+            $page = 0;
+            foreach ($todos as $todo) {
+                $todoData[$page] = $todo;
+            }
+            $page++;
+        }); */
+
+        /* DB::table('to_dos')->orderBy('id')->chunk(5, function($todos) {
+            foreach ($todos as $todo) {
+                $todoData[] = $todo;
+            }
+        }); */
+
+        return response()->json($todoData);
     }
 
     function store(Request $request){
@@ -28,6 +46,7 @@ class ToDosController extends Controller
     function show(Request $request, $id){
         $todo = ToDo::find($id);
         return response()->json($todo);
+        
     }
 
     function update(Request $request, $id){
@@ -46,6 +65,10 @@ class ToDosController extends Controller
         $todo = ToDo::find($id);
         $todo->delete();
         return response()->json();
+    }
+
+    function login(Request $request){
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
 }
