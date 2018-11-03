@@ -21,27 +21,41 @@ class Main extends Component {
     }
 
     render() {
+        const lineColor = {
+            backgroundColor: "#c3c6c7"
+        }
         return (
             <div className="container">
                 <nav className="navbar navbar-default">
                     <div className="container-fluid">
                         <div className="navbar-header">
                             <a className="navbar-brand" style={{ color: "#000000" }} href="/">ToDoList</a>
-                        </div>
-
-                        <ul className="nav navbar-nav" >
-                            <li className="active"><a href="#" style={{ color: "#ffffff" }}>Home</a></li>
-                            <li><Link to="create" style={{ color: "#4f0d0d" }}>Create</Link></li>
-                            <li><Link to="list" style={{ color: "#791313" }}>List</Link></li>
-                            <li><Link to="time" style={{ color: "#961818" }}>Time</Link></li>
-                            <li></li>
-                        </ul>
-                        <div className="collapse navbar-collapse navbar-right">
-                            <p className="navbar-brand"
+                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"
                                 style={{
-                                    color: "#ffffff",
-                                    marginBottom: 0,
-                                }}>{this.state.date}</p>
+                                    backgroundColor: "#273036",
+                                    borderColor: "#273036",
+                                }}>
+                                <span className="sr-only">Toggle navigation</span>
+                                <span className="icon-bar" style={lineColor}></span>
+                                <span className="icon-bar" style={lineColor}></span>
+                                <span className="icon-bar" style={lineColor}></span>
+                            </button>
+                        </div>
+                        <div className="collapse navbar-collapse" id="defaultNavbar1" >
+                            <ul className="nav navbar-nav" >
+                                <li className="active"><a href="#" style={{ color: "#ffffff" }}>Home</a></li>
+                                <li><Link to="create" style={{ color: "#4f0d0d" }}>Create</Link></li>
+                                <li><Link to="list" style={{ color: "#791313" }}>List</Link></li>
+                                <li><Link to="time" style={{ color: "#961818" }}>Time</Link></li>
+                                <li></li>
+                            </ul>
+                            <div className="collapse navbar-collapse navbar-right">
+                                <p className="navbar-brand"
+                                    style={{
+                                        color: "#ffffff",
+                                        marginBottom: 0,
+                                    }}>{this.state.date}</p>
+                            </div>
                         </div>
                     </div>
                 </nav>

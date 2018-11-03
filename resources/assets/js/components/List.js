@@ -11,6 +11,7 @@ class List extends Component {
             page: 0,
             nextUrl: null,
             prevUrl: null,
+            offset: false,
         }
     }
     componentDidMount() {
@@ -28,7 +29,6 @@ class List extends Component {
                 console.log(error)
             })
     }
-
     nextPage() {
         axios.get(this.state.nextUrl)
             .then(response => {
@@ -61,6 +61,10 @@ class List extends Component {
             })
     }
 
+    offSetFunc() {
+        this.setState({ offset: !this.state.offset })
+    }
+
     tabRow() {
         if (this.state.data instanceof Array) {
             return this.state.data.map(function (object, i) {
@@ -71,6 +75,16 @@ class List extends Component {
     }
 
     render() {
+        const leftButtonStyle = {
+            borderRadius: 4,
+            backgroundColor: "#586066",
+            float: "left",
+        }
+        const rightButtonStyle = {
+            borderRadius: 4,
+            backgroundColor: "#586066",
+            float: "right",
+        }
         return (
             <div>
                 <h1>ToDo List</h1>
@@ -81,6 +95,18 @@ class List extends Component {
                         <Link to="/create">+ New ToDo</Link>
                     </div>
                 </div><br />
+                <ul className="pager">
+                    <li className="previous">
+                        <button
+                            onClick={() => { this.prevPage() }}
+                            style={leftButtonStyle}> Previous</button>
+                    </li>
+                    <li className="next">
+                        <button
+                            onClick={() => { this.nextPage() }}
+                            style={rightButtonStyle}>Next</button>
+                    </li>
+                </ul>
 
                 <table className="table table-hover">
                     <thead>
@@ -95,6 +121,16 @@ class List extends Component {
                         {this.tabRow()}
                     </tbody>
                 </table>
+                <ul className="pager">
+                    <li className="previous">
+                        <button
+                            onClick={() => { this.prevPage() }}
+                            style={leftButtonStyle}>Previous</button></li>
+                    <li className="next"><button
+                        onClick={() => { this.nextPage() }}
+                        style={rightButtonStyle}>Next</button>
+                    </li>
+                </ul>
             </div>
         )
     }

@@ -9,26 +9,10 @@ use DB;
 class ToDosController extends Controller
 {
     function index(){
-        //$todos = ToDo::all() -> paginate(5);
+        //$todos = ToDo::all();
         $todos = DB::table('to_dos') -> paginate(5);
         return response()->json($todos);
-        /* $todoData = [];
         
-        Todo::all()->chunk(5, function($todos) {
-            $page = 0;
-            foreach ($todos as $todo) {
-                $todoData[$page] = $todo;
-            }
-            $page++;
-        }); */
-
-        /* DB::table('to_dos')->orderBy('id')->chunk(5, function($todos) {
-            foreach ($todos as $todo) {
-                $todoData[] = $todo;
-            }
-        }); */
-
-        return response()->json($todoData);
     }
 
     function store(Request $request){

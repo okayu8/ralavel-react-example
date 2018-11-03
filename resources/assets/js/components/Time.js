@@ -41,24 +41,23 @@ class Time extends Component {
 
     render() {
         return (
-            <Page contentStyle={{ backgroundColor: '#efeff5' }}>
-                <Toolbar>
+            <div>
+                <h1>List Time</h1>
+                <div style={{ textAlign: 'center' }}>
                     <div className='enter'>ストップウォッチ</div>
                     <div className='right'>
-                        <ToolbarButton>
-                            <Icon icon='ion-navicon, material:md-menu'></Icon>
-                        </ToolbarButton>
+
                     </div >
-                </Toolbar >
-                <div style={{ marginTop: '50%', textAlign: 'center' }}>
-                    <h1 className='stopwatch-timer'>{formattedSeconds(this.state.secondsElapsed)}</h1>
-                </div >
-                <div className='stopwatch'>
-                    <Button className='start-btn' onClick={this.handleStartClick.bind(this)}>start</Button>
-                    <Button className='stop-btn' onClick={this.handleStopClick.bind(this)}>stop</Button>
-                    <Button onClick={this.handleResetClick.bind(this)}>reset</Button>
-                </div >
-            </Page >
+                    <div >
+                        <h1 className='stopwatch-timer'>{formattedSeconds(this.state.secondsElapsed)}</h1>
+                    </div >
+                    <div className='stopwatch'>
+                        <button className='start-btn' onClick={this.handleStartClick.bind(this)}>start</button>
+                        <button className='stop-btn' onClick={this.handleStopClick.bind(this)}>stop</button>
+                        <button onClick={this.handleResetClick.bind(this)}>reset</button>
+                    </div >
+                </div>
+            </div>
         );
     }
 }

@@ -4,12 +4,14 @@ import { Link, browserHistory } from 'react-router';
 class TableRow extends Component {
     constructor(props) {
         super(props);
+
     }
     handleSubmitDeletion(event) {
         event.preventDefault();
         let uri = "http://localhost:8000/api/todos/" + this.props.obj.id
         axios.delete(uri);
-        browserHistory.push('/');
+        //browserHistory.push('/')
+        location.reload();
     }
     render() {
         return (
