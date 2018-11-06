@@ -10,7 +10,7 @@ class ToDosController extends Controller
 {
     function index(){
         //$todos = ToDo::all();
-        $todos = DB::table('to_dos') -> paginate(5);
+        $todos = DB::table('to_dos') -> paginate(10);
         return response()->json($todos);
         
     }
