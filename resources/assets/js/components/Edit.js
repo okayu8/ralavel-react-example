@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 class Edit extends Component {
     constructor(props) {
         super(props);
-        this.state = { title: '', description: '' };
+        this.state = { title: '', description: '', time: '' };
     }
 
     componentDidMount() {
@@ -13,7 +13,8 @@ class Edit extends Component {
             .then(response => {
                 this.setState({
                     title: response.data.title,
-                    description: response.data.description
+                    description: response.data.description,
+                    time: response.data.time
                 });
             })
             .catch(function (error) {
@@ -30,12 +31,18 @@ class Edit extends Component {
             description: e.target.value
         })
     }
+    handleChangeTime(e) {
+        this.setState({
+            time: e.target.value
+        })
+    }
 
     handleSubmit(event) {
         event.preventDefault();
         const products = {
             title: this.state.title,
-            description: this.state.description
+            description: this.state.description,
+            time: this.state.time
         }
         let uri = 'http://localhost:8000/api/todos/' + this.props.params.id
         axios.patch(uri, products).then((response) => {
@@ -62,10 +69,17 @@ class Edit extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label name="product_price">Item Price</label>
+                        <label name="product_price">Description</label>
                         <input type="text" className="form-control"
                             value={this.state.description}
                             onChange={this.handleChangeDesc.bind(this)} />
+                    </div>
+
+                    <div className="form-group">
+                        <label name="product_price">Time</label>
+                        <input type="text" className="form-control"
+                            value={this.state.time}
+                            onChange={this.handleChangeTime.bind(this)} />
                     </div>
 
                     <div className="form-group">

@@ -23,6 +23,7 @@ class ToDosController extends Controller
         $todo = new ToDo();
         $todo->title = $request->title;
         $todo->description = $request->description;
+        $todo->time = $request->time;
         $todo->save();
         return response()->json();
     }
@@ -37,10 +38,12 @@ class ToDosController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'description' => 'required|max:255',
+            'time' => 'required|max:255'
         ]);
         $todo = ToDo::find($id);
         $todo->title = $request->title;
         $todo->description = $request->description;
+        $todo->time = $request->time;
         $todo->save();
         return response()->json();
     }

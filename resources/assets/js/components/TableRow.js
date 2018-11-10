@@ -22,8 +22,11 @@ class TableRow extends Component {
                 <td>
                     {this.props.obj.title}
                 </td>
-                <td>
+                <td className="hidden-sm hidden-xs">
                     {this.props.obj.description}
+                </td>
+                <td className="hidden-xs">
+                    {this.props.obj.time}
                 </td>
                 <td>
                     <Link to={"/todos/" + this.props.obj.id + "/edit"} className="btn btn-primary">Edit</Link>

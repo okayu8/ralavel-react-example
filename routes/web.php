@@ -24,6 +24,7 @@ Route::prefix('api')->group(function(){
 });
 
 Auth::routes();
+
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/{any?}', function () {

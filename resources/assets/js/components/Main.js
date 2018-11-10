@@ -45,8 +45,9 @@ class Main extends Component {
                             <ul className="nav navbar-nav" >
                                 <li className="active"><a href="#" style={{ color: "#ffffff" }}>Home</a></li>
                                 <li><Link to="create" style={{ color: "#4f0d0d" }}>Create</Link></li>
-                                <li><Link to="list" style={{ color: "#791313" }}>List</Link></li>
-                                <li><Link to="time" style={{ color: "#961818" }}>Time</Link></li>
+                                <li><Link to="list" style={{ color: "#791313" }}>Todo</Link></li>
+                                <li><Link to="done" style={{ color: "#961818" }}>Done</Link></li>
+                                <li><Link to="time" style={{ color: "#af1c1c" }}>Time</Link></li>
                                 <li></li>
                             </ul>
                             <div className="collapse navbar-collapse navbar-right">
