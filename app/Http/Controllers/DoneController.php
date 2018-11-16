@@ -6,17 +6,16 @@ use Illuminate\Http\Request;
 use App\ToDo;
 use DB;
 
-class ToDosController extends Controller
+class DoneController extends Controller
 {
     function index(){
-        //$todos = ToDo::all();
-        $todos = DB::table('to_dos') -> where('state', 0) -> paginate(10);
+        $todos = DB::table('to_dos') -> where('state', 1) -> paginate(10);
         
         return response()->json($todos);
         
     }
 
-    function store(Request $request){
+    /* function store(Request $request){
         $this->validate($request, [
             'title' => 'required|max:255',
             'description' => 'required|max:255',
@@ -26,7 +25,7 @@ class ToDosController extends Controller
         $todo->description = $request->description;
         $todo->save();
         return response()->json();
-    }
+    } */
 
     function show(Request $request, $id){
         $todo = ToDo::find($id);
@@ -36,14 +35,10 @@ class ToDosController extends Controller
 
     function update(Request $request, $id){
         $this->validate($request, [
-            'title' => 'required|max:255',
-            'description' => 'required|max:255',
-            'time' => 'required|max:255'
+            'state' => 'required|max:255',
         ]);
         $todo = ToDo::find($id);
-        $todo->title = $request->title;
-        $todo->description = $request->description;
-        $todo->time = $request->time;
+        $todo->state = $request->state;
         $todo->save();
         return response()->json();
     }
@@ -57,5 +52,4 @@ class ToDosController extends Controller
     function login(Request $request){
         $this->middleware('auth')->except(['index', 'show']);
     }
-
 }

@@ -15,9 +15,9 @@ class Done extends Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:8000/api/todos')
+        axios.get('http://localhost:8000/api/done')
             .then(response => {
-                console.log('todos_list')
+                console.log('done_list')
                 console.log('data:' + JSON.stringify(response.data))
                 this.setState({
                     data: response.data.data,
@@ -86,7 +86,7 @@ class Done extends Component {
             float: "right",
         }
         return (
-            <div>
+            <div style={{ backgroundColor: '' }}>
                 <h1>Done List</h1>
 
                 <div className="row">
@@ -99,12 +99,16 @@ class Done extends Component {
                     <li className="previous">
                         <button
                             onClick={() => { this.prevPage() }}
-                            style={leftButtonStyle}> Previous</button>
+                            style={leftButtonStyle}>
+                            <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+                        </button>
                     </li>
                     <li className="next">
                         <button
                             onClick={() => { this.nextPage() }}
-                            style={rightButtonStyle}>Next</button>
+                            style={rightButtonStyle}>
+                            <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+                        </button>
                     </li>
                 </ul>
 
@@ -126,10 +130,14 @@ class Done extends Component {
                     <li className="previous">
                         <button
                             onClick={() => { this.prevPage() }}
-                            style={leftButtonStyle}>Previous</button></li>
+                            style={leftButtonStyle}>
+                            <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+                        </button></li>
                     <li className="next"><button
                         onClick={() => { this.nextPage() }}
-                        style={rightButtonStyle}>Next</button>
+                        style={rightButtonStyle}>
+                        <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+                    </button>
                     </li>
                 </ul>
             </div>

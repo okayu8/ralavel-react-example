@@ -1,11 +1,30 @@
 import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
+import axios from 'axios';
 
 class DoneTableRow extends Component {
     constructor(props) {
         super(props);
-
+        this.state = { state: 1 };
     }
+
+    handleChangeState() {
+        this.setState({
+            state: 0
+        })
+    }
+
+    handleSubmitReturn(event) {
+        event.preventDefault();
+        const products = {
+            state: this.state.state,
+        }
+        let uri = "http://localhost:8000/api/done/" + this.props.obj.id
+        axios.patch(uri, products).then((response) => {
+            location.reload();
+        });
+    }
+
     handleSubmitDeletion(event) {
         event.preventDefault();
         let uri = "http://localhost:8000/api/todos/" + this.props.obj.id
@@ -29,12 +48,16 @@ class DoneTableRow extends Component {
                     {this.props.obj.time}
                 </td>
                 <td>
-                    <Link to={"/todos/" + this.props.obj.id + "/edit"} className="btn btn-primary">Edit</Link>
+                    <button onClick={this.handleSubmitReturn.bind(this)}
+                        type="button" className="btn btn-warning" aria-label="Left Align">
+                        <span className="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
+                    </button>
                 </td>
                 <td>
-                    <form onSubmit={this.handleSubmitDeletion.bind(this)}>
-                        <input type="submit" value="Delete" className="btn btn-danger" />
-                    </form>
+                    <button onClick={this.handleSubmitDeletion.bind(this)}
+                        type="button" className="btn btn-danger" aria-label="Left Align">
+                        <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
                 </td>
             </tr>
         )

@@ -17,9 +17,7 @@ Route::get('/', function () {
 
 Route::prefix('api')->group(function(){
     Route::resource('todos', 'ToDosController', ['only'=>['index', 'store', 'show', 'update', 'destroy', 'login']]);
-});
-
-Route::prefix('api')->group(function(){
+    Route::resource('done', 'DoneController', ['only'=>['index', 'show', 'update', 'destroy', 'login']]);
     Route::resource('date', 'DateController', ['only'=>['index']]);
 });
 

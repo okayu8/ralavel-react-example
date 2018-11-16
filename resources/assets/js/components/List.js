@@ -99,12 +99,16 @@ class List extends Component {
                     <li className="previous">
                         <button
                             onClick={() => { this.prevPage() }}
-                            style={leftButtonStyle}> Previous</button>
+                            style={leftButtonStyle}>
+                            <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+                        </button>
                     </li>
                     <li className="next">
                         <button
                             onClick={() => { this.nextPage() }}
-                            style={rightButtonStyle}>Next</button>
+                            style={rightButtonStyle}>
+                            <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+                        </button>
                     </li>
                 </ul>
 
@@ -112,6 +116,7 @@ class List extends Component {
                     <thead>
                         <tr>
                             <td>ID</td>
+                            <td>Check</td>
                             <td>Title</td>
                             <td className="hidden-sm hidden-xs">Description</td>
                             <td className="hidden-xs">Time</td>
@@ -126,10 +131,14 @@ class List extends Component {
                     <li className="previous">
                         <button
                             onClick={() => { this.prevPage() }}
-                            style={leftButtonStyle}>Previous</button></li>
+                            style={leftButtonStyle}>
+                            <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+                        </button></li>
                     <li className="next"><button
                         onClick={() => { this.nextPage() }}
-                        style={rightButtonStyle}>Next</button>
+                        style={rightButtonStyle}>
+                        <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+                    </button>
                     </li>
                 </ul>
             </div>
