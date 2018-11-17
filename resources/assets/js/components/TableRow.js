@@ -8,16 +8,10 @@ class TableRow extends Component {
         this.state = { state: 0 };
     }
 
-    handleChangeState() {
-        this.setState({
-            state: 1
-        })
-    }
-
     handleSubmitReturn(event) {
         event.preventDefault();
         const products = {
-            state: this.state.state,
+            state: 1,
         }
         let uri = "http://localhost:8000/api/done/" + this.props.obj.id
         axios.patch(uri, products).then((response) => {
