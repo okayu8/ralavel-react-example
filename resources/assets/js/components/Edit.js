@@ -5,7 +5,12 @@ import { Link } from 'react-router';
 class Edit extends Component {
     constructor(props) {
         super(props);
-        this.state = { title: '', description: '', time: '' };
+        this.state = {
+            title: '',
+            description: '',
+            time: '',
+            limit: ''
+        };
     }
 
     componentDidMount() {
@@ -14,7 +19,8 @@ class Edit extends Component {
                 this.setState({
                     title: response.data.title,
                     description: response.data.description,
-                    time: response.data.time
+                    time: response.data.time,
+                    limit: response.data.limit,
                 });
             })
             .catch(function (error) {
@@ -36,13 +42,19 @@ class Edit extends Component {
             time: e.target.value
         })
     }
+    handleChangeLimit(e) {
+        this.setState({
+            limit: e.target.value
+        })
+    }
 
     handleSubmit(event) {
         event.preventDefault();
         const products = {
             title: this.state.title,
             description: this.state.description,
-            time: this.state.time
+            time: this.state.time,
+            limit: this.state.limit,
         }
         let uri = 'http://localhost:8000/api/todos/' + this.props.params.id
         axios.patch(uri, products).then((response) => {
@@ -73,6 +85,13 @@ class Edit extends Component {
                         <input type="text" className="form-control"
                             value={this.state.description}
                             onChange={this.handleChangeDesc.bind(this)} />
+                    </div>
+
+                    <div className="form-group">
+                        <label name="product_price">Limit</label>
+                        <input type="text" className="form-control"
+                            value={this.state.limit}
+                            onChange={this.handleChangeLimit.bind(this)} />
                     </div>
 
                     <div className="form-group">
