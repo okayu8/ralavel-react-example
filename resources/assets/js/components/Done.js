@@ -14,6 +14,7 @@ class Done extends Component {
             offset: false,
         }
     }
+    //TODO:todo test
     componentDidMount() {
         axios.get('http://localhost:8000/api/done')
             .then(response => {
@@ -118,7 +119,7 @@ class Done extends Component {
                             <td>ID</td>
                             <td>Title</td>
                             <td className="hidden-sm hidden-xs">Description</td>
-                            <td className="hidden-xs">Time</td>
+                            <td className="hidden-xs">Time(h)</td>
                             <td>Actions</td>
                         </tr>
                     </thead>

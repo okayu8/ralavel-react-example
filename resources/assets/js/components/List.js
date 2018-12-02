@@ -119,7 +119,7 @@ class List extends Component {
                             <td>Check</td>
                             <td>Title</td>
                             <td className="hidden-sm hidden-xs">Description</td>
-                            <td className="hidden-xs">Time</td>
+                            <td className="hidden-xs">Time(h)</td>
                             <td>Actions</td>
                         </tr>
                     </thead>
