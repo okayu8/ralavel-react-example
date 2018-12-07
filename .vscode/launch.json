@@ -5,15 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Listen for XDebug",
+            "name": "laravel_react_example for XDebug",
             "type": "php",
             "request": "launch",
             "port": 9001,
-            "serverSourceRoot": "/Applications/MAMP/htdocs/laravel-react-example/public",
-            "localSourceRoot": "${workspaceRoot}"
-            /* "pathMappings": {
-                "${workspaceRoot}/public": "/Applications/MAMP/htdocs/laravel_app/public"
-            } */
+            /* "serverSourceRoot": "/Applications/MAMP/htdocs/laravel-react-example/public",
+            "localSourceRoot": "${workspaceRoot}" */
+            "pathMappings": {
+                "${workspaceRoot}/public": "/Applications/MAMP/htdocs/laravel_react_example/public"
+            }
         } /* ,
         {
             "name": "Launch currently open script",
