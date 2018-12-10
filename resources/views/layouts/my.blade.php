@@ -15,52 +15,59 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    TodoList
-                </a>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    {{-- Navbarの右側 --}}
-                    <ul class="navbar-nav ml-auto">
-                        {{-- 投稿ボタン --}}
-                        
-                        {{-- 認証関連のリンク --}}
-                        @guest
-                            {{-- 「ログイン」と「ユーザー登録」へのリンク --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                           
-                        @else
-                            {{-- 「プロフィール」と「ログアウト」のドロップダウンメニュー --}}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdown-user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
-                                    <a class="dropdown-item" href="{{ url('users/'.auth()->user()->id) }}">
-                                        {{ __('Profile') }}
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" style="color:#000000;" href="/">ToDoList</a>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"
+                            style="backgroundColor: #273036; borderColor: #273036;"
+                                >
+                            <span class="icon-bar" style=""></span>
+                            <span class="icon-bar" style=""></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        {{-- Navbarの右側 --}}
+                        <ul class="nav navbar-nav">
+                            {{-- 投稿ボタン --}}
+                            
+                            {{-- 認証関連のリンク --}}
+                            @guest
+                                {{-- 「ログイン」と「ユーザー登録」へのリンク --}}
+                                <li>
+                                    <a href="{{ route('login') }}" style="color:#961818;">{{ __('Login') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('register') }}" style="color:#af1c1c;">{{ __('Register') }}</a>
+                                </li>
+                            
+                            @else
+                                {{-- 「プロフィール」と「ログアウト」のドロップダウンメニュー --}}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="dropdown-user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
+                                        <a class="dropdown-item" href="{{ url('users/'.auth()->user()->id) }}">
+                                            {{ __('Profile') }}
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-
+            </nav>
+        </div>
         <main class="py-4">
             @yield('content')
         </main>
