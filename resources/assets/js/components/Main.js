@@ -6,6 +6,8 @@ class Main extends Component {
         super(props);
         this.state = {
             date: null,
+            isLoggedIn: false,
+            user: {}
         }
     }
 
@@ -18,6 +20,13 @@ class Main extends Component {
             .catch(function (error) {
                 console.log(error)
             })
+
+        let state = localStorage["appState"];
+        if (state) {
+            let AppState = JSON.parse(state);
+            console.log(AppState);
+            this.setState({ isLoggedIn: AppState.isLoggedIn, user: AppState });
+        }
     }
 
     render() {
@@ -69,3 +78,4 @@ class Main extends Component {
 
 }
 export default Main;
+

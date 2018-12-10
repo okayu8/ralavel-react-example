@@ -8,14 +8,17 @@ use DB;
 
 class ToDosController extends Controller
 {
+    //TodoListの参照
     public function index()
     {
+        //Todoを10件に分割して取得
         //$todos = ToDo::all();
         $todos = DB::table('to_dos')->where('state', 0)->paginate(10);
 
         return response()->json($todos);
     }
 
+    //Todoの作成
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -32,6 +35,7 @@ class ToDosController extends Controller
         return response()->json();
     }
 
+    //Todoの参照
     public function show(Request $request, $id)
     {
         $todo = ToDo::find($id);
@@ -39,6 +43,7 @@ class ToDosController extends Controller
         return response()->json($todo);
     }
 
+    //Todoの更新
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -57,6 +62,7 @@ class ToDosController extends Controller
         return response()->json();
     }
 
+    //Todoの削除
     public function destroy(Request $request, $id)
     {
         $todo = ToDo::find($id);
@@ -65,6 +71,7 @@ class ToDosController extends Controller
         return response()->json();
     }
 
+    //TODO:仮置きなので今後削除する。ログインの処理。
     public function login(Request $request)
     {
         $this->middleware('auth')->except(['index', 'show']);

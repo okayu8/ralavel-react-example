@@ -8,6 +8,7 @@ import List from './components/List';
 import Done from './components/Done';
 import Edit from './components/Edit';
 import Time from './components/Time';
+//import App from './components/Auth/index';
 
 render(
     <Router history={browserHistory}>

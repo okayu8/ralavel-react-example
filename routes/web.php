@@ -15,10 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('api')->group(function(){
-    Route::resource('todos', 'ToDosController', ['only'=>['index', 'store', 'show', 'update', 'destroy', 'login']]);
-    Route::resource('done', 'DoneController', ['only'=>['index', 'show', 'update', 'destroy', 'login']]);
-    Route::resource('date', 'DateController', ['only'=>['index']]);
+Route::resource('users', 'UserController');
+
+Route::prefix('api')->group(function () {
+    Route::resource('todos', 'ToDosController', ['only' => ['index', 'store', 'show', 'update', 'destroy', 'login']]);
+    Route::resource('done', 'DoneController', ['only' => ['index', 'show', 'update', 'destroy', 'login']]);
+    Route::resource('date', 'DateController', ['only' => ['index']]);
 });
 
 Auth::routes();
@@ -27,4 +29,4 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/{any?}', function () {
     return view('welcome');
-})->where('any', ".*");
+})->where('any', '.*');
