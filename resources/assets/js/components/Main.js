@@ -6,8 +6,6 @@ class Main extends Component {
         super(props);
         this.state = {
             date: null,
-            isLoggedIn: false,
-            user: {}
         }
     }
 
@@ -20,13 +18,21 @@ class Main extends Component {
             .catch(function (error) {
                 console.log(error)
             })
+    }
 
-        let state = localStorage["appState"];
-        if (state) {
-            let AppState = JSON.parse(state);
-            console.log(AppState);
-            this.setState({ isLoggedIn: AppState.isLoggedIn, user: AppState });
-        }
+    logout() {
+        axios.defaults.headers['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').attr('content')
+        axios.get("/logout")
+            .then(response => {
+                console.log('SUCCESS LOGOUT')
+                location.href = '/';
+            })
+
+        /* axios.defaults.headers['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').attr('content')
+        axios.post("/logout", {
+            withCredentials: true
+        }) */
+
     }
 
     render() {
@@ -57,7 +63,7 @@ class Main extends Component {
                                 <li><Link to="list" style={{ color: "#791313" }}>Todo</Link></li>
                                 <li><Link to="done" style={{ color: "#961818" }}>Done</Link></li>
                                 <li><Link to="time" style={{ color: "#af1c1c" }}>Time</Link></li>
-                                <li></li>
+                                <li><button onClick={() => { this.logout() }}>Logout</button></li>
                             </ul>
                             <div className="collapse navbar-collapse navbar-right">
                                 <p className="navbar-brand"

@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::resource('users', 'UserController');
 
+Route::get('logout', 'yourSessionController@logout');
+
 Route::prefix('api')->group(function () {
     Route::resource('todos', 'ToDosController', ['only' => ['index', 'store', 'show', 'update', 'destroy', 'login']]);
     Route::resource('done', 'DoneController', ['only' => ['index', 'show', 'update', 'destroy', 'login']]);
