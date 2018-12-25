@@ -18,7 +18,7 @@ class Create extends Component {
             title: this.state.title,
             description: this.state.description
         }
-        let uri = 'http://localhost:8000/api/todos'
+        let uri = '/api/todos'
         axios.post(uri, todo).then((response) => {
             browserHistory.push('/list')
             console.log("success")

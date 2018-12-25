@@ -13,7 +13,7 @@ class DoneTableRow extends Component {
         const products = {
             state: 0,
         }
-        let uri = "http://localhost:8000/api/done/" + this.props.obj.id
+        let uri = "/api/done/" + this.props.obj.id
         axios.patch(uri, products).then((response) => {
             location.reload();
         });
@@ -21,7 +21,7 @@ class DoneTableRow extends Component {
 
     handleSubmitDeletion(event) {
         event.preventDefault();
-        let uri = "http://localhost:8000/api/todos/" + this.props.obj.id
+        let uri = "/api/todos/" + this.props.obj.id
         axios.delete(uri);
         //browserHistory.push('/')
         location.reload();

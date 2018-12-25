@@ -14,7 +14,7 @@ class Edit extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:8000/api/todos/" + this.props.params.id)
+        axios.get("/api/todos/" + this.props.params.id)
             .then(response => {
                 this.setState({
                     title: response.data.title,
@@ -56,7 +56,7 @@ class Edit extends Component {
             time: this.state.time,
             limit: this.state.limit,
         }
-        let uri = 'http://localhost:8000/api/todos/' + this.props.params.id
+        let uri = '/api/todos/' + this.props.params.id
         axios.patch(uri, products).then((response) => {
             this.props.history.push('/list');
         });

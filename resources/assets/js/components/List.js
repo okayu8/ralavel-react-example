@@ -15,7 +15,7 @@ class List extends Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:8000/api/todos')
+        axios.get('/api/todos')
             .then(response => {
                 console.log('todos_list')
                 console.log('data:' + JSON.stringify(response.data))

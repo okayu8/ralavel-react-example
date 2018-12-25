@@ -10,7 +10,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8000/api/date')
+        axios.get('/api/date')
             .then(response => {
                 console.log('date:' + JSON.stringify(response.data))
                 this.setState({ date: response.data })

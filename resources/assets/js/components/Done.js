@@ -16,7 +16,7 @@ class Done extends Component {
     }
     //TODO:todo test
     componentDidMount() {
-        axios.get('http://localhost:8000/api/done')
+        axios.get('/api/done')
             .then(response => {
                 console.log('done_list')
                 console.log('data:' + JSON.stringify(response.data))
