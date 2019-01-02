@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 class Create extends Component {
     constructor(props) {
         super(props)
-        this.state = { title: '', description: '' }
+        this.state = { title: '', description: '', limit: '', }
     }
     handleChangeTitle(e) {
         this.setState({ title: e.target.value })
@@ -12,14 +12,19 @@ class Create extends Component {
     handleChangeDesc(e) {
         this.setState({ description: e.target.value })
     }
+    handleChangeLimit(e) {
+        this.setState({ limit: e.target.value })
+    }
     handleSubmit(e) {
         e.preventDefault()
         const todo = {
             title: this.state.title,
-            description: this.state.description
+            description: this.state.description,
+            limit: this.state.limit,
         }
         let uri = '/api/todos'
         axios.post(uri, todo).then((response) => {
+            console.log(JSON.stringify(response));
             browserHistory.push('/list')
             console.log("success")
         })
@@ -44,7 +49,16 @@ class Create extends Component {
                                 <input type="text" className="form-control col-md-6" onChange={this.handleChangeDesc.bind(this)} />
                             </div>
                         </div>
-                    </div><br />
+                    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Limit:</label>
+                                <input type="text" className="form-control col-md-6" onChange={this.handleChangeLimit.bind(this)} />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
                     <div className="form-group">
                         <button className="btn btn-primary">Create</button>
                     </div>

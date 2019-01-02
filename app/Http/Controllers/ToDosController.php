@@ -28,8 +28,10 @@ class ToDosController extends Controller
         ]);
         $todo = new ToDo();
         $todo->title = $request->title;
-        $todo->description = $request->description;
-        $todo->limit = $request->limit;
+        $todo->description = $request->description;       
+        //TODO:期限の実装が完了したらコメントアウト
+        //$todo->limit = $request->limit;
+        $todo->limit = 0;
         $todo->save();
 
         return response()->json();
