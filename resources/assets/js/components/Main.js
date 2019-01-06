@@ -6,6 +6,8 @@ class Main extends Component {
         super(props);
         this.state = {
             date: null,
+            user_id: null,
+            user_name: null,
         }
     }
 
@@ -14,6 +16,17 @@ class Main extends Component {
             .then(response => {
                 console.log('date:' + JSON.stringify(response.data))
                 this.setState({ date: response.data })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+            
+            axios.get('/users')
+            .then(response => {
+                this.setState({
+                    user_id: response.data.id,
+                    user_name: response.data.name,
+                })
             })
             .catch(function (error) {
                 console.log(error)
@@ -65,6 +78,13 @@ class Main extends Component {
                                 <li><Link to="time" style={{ color: "#af1c1c" }}>Time</Link></li>
                                 <li><button onClick={() => { this.logout() }}>Logout</button></li>
                             </ul>
+                            <div className="collapse navbar-collapse navbar-right">
+                                <p className="navbar-brand"
+                                    style={{
+                                        color: "#ffffff",
+                                        marginBottom: 0,
+                                    }}>{this.state.user_name}</p>
+                            </div>
                             <div className="collapse navbar-collapse navbar-right">
                                 <p className="navbar-brand"
                                     style={{
