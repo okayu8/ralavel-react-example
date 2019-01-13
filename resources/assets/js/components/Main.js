@@ -20,8 +20,8 @@ class Main extends Component {
             .catch(function (error) {
                 console.log(error)
             })
-            
-            axios.get('/users')
+
+        axios.get('/users')
             .then(response => {
                 this.setState({
                     user_id: response.data.id,
@@ -75,7 +75,7 @@ class Main extends Component {
                                 <li><Link to="create" style={{ color: "#4f0d0d" }}>Create</Link></li>
                                 <li><Link to="list" style={{ color: "#791313" }}>Todo</Link></li>
                                 <li><Link to="done" style={{ color: "#961818" }}>Done</Link></li>
-                                <li><Link to="time" style={{ color: "#af1c1c" }}>Time</Link></li>
+                                {/* <li><Link to="time" style={{ color: "#af1c1c" }}>Time</Link></li> */}
                                 <li><button onClick={() => { this.logout() }}>Logout</button></li>
                             </ul>
                             <div className="collapse navbar-collapse navbar-right">
