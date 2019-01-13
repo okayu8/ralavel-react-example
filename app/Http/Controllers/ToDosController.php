@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ToDo;
+use App\User;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class ToDosController extends Controller
 {
@@ -13,7 +15,8 @@ class ToDosController extends Controller
     {
         //Todoを10件に分割して取得
         //$todos = ToDo::all();
-        $todos = DB::table('to_dos')->where('state', 0)->paginate(10);
+        $user = Auth::user();
+        $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->paginate(10);
 
         return response()->json($todos);
     }
@@ -24,14 +27,15 @@ class ToDosController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'description' => 'required|max:255',
-            'limit' => 'required|max:255',
         ]);
         $todo = new ToDo();
+        $user = Auth::user();
         $todo->title = $request->title;
         $todo->description = $request->description;       
         //TODO:期限の実装が完了したらコメントアウト
         //$todo->limit = $request->limit;
-        $todo->limit = 0;
+        $todo->limit = $request->limit ? $request->limit : 0;
+        $todo->user_id = $user->id;
         $todo->save();
 
         return response()->json();
