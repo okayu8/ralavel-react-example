@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Router, Route, Link } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { addText, clearText } from '../actions/AppActions';
 
 class Main extends Component {
     constructor(props) {
@@ -96,12 +99,54 @@ class Main extends Component {
                     </div>
                 </nav>
                 <div>
+                    {/* 以下テスト */}
+                    <div>
+                        <input type='text' ref='input' /><br />
+                        <button onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
+                        <button onClick={(e) => this.onClearBtnClicked(e)} >Clear</button>
+                    </div>
+                    <ul>
+                        {
+                            //state中のオブジェクトをループさせて<li>要素を描画。stateは selector() メソッドで指定しているものがpropsとして渡ってくる
+                            this.props.state.storedText.map((obj) =>
+                                <li key={obj.id} >
+                                    {obj.text}
+                                </li>
+                            )
+                        }
+                    </ul>
+                    {/* 以上テスト */}
                     {this.props.children}
                 </div>
             </div >
         )
     }
 
+    onAddBtnClicked(e) {
+        let input = this.refs.input
+        let text = input.value.trim()
+        if (!text) return alert('何かテキストを入力してください。')
+        input.value = ''
+        // Appコンポーネントが connect() メソッドでラップされていることによって、dispatchメソッドを呼び出すことが可能になる
+        // dispatch() メソッドで ActionCreator である addText() メソッドをラップして呼び出すことによってデータの変更を伝播する
+        this.props.dispatch(addText(text))
+    }
+
+    //Clear ボタンをクリックした時に呼び出される
+    onClearBtnClicked(e) {
+        // dispatchメソッドで ActionCreator であるclearText() メソッドをラップして呼び出すことによってデータの変更を伝播する
+        this.props.dispatch(clearText())
+    }
+
 }
-export default Main;
+
+let selector = (state) => {
+    // [storedText]というキー名はreducer.jsの最下部で設定している Store のキー名
+    console.log(state.storedText);
+    return {
+        state: state // Key名とvalue名が同じなので return {state} でも可: Object Literal Shorthand
+    }
+}
+
+export default connect(selector)(Main)
 
