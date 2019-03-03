@@ -99,23 +99,7 @@ class Main extends Component {
                     </div>
                 </nav>
                 <div>
-                    {/* 以下テスト */}
-                    <div>
-                        <input type='text' ref='input' /><br />
-                        <button onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
-                        <button onClick={(e) => this.onClearBtnClicked(e)} >Clear</button>
-                    </div>
-                    <ul>
-                        {
-                            //state中のオブジェクトをループさせて<li>要素を描画。stateは selector() メソッドで指定しているものがpropsとして渡ってくる
-                            this.props.state.storedText.map((obj) =>
-                                <li key={obj.id} >
-                                    {obj.text}
-                                </li>
-                            )
-                        }
-                    </ul>
-                    {/* 以上テスト */}
+
                     {this.props.children}
                 </div>
             </div >
