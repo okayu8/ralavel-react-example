@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router';
 import TableRow from './TableRow';
 import { connect } from 'react-redux';
-import { addText, clearText } from '../actions/AppActions';
+import { addText, clearText, addTodo } from '../actions/AppActions';
 
 class List extends Component {
     constructor(props) {
@@ -104,7 +104,7 @@ class List extends Component {
                 <ul>
                     {
                         //state中のオブジェクトをループさせて<li>要素を描画。stateは selector() メソッドで指定しているものがpropsとして渡ってくる
-                        this.props.state.storedText.map((obj) =>
+                        this.props.state.store.map((obj) =>
                             <li key={obj.id} >
                                 {obj.text}
                             </li>
@@ -187,7 +187,7 @@ class List extends Component {
 
 let selector = (state) => {
     // [storedText]というキー名はreducer.jsの最下部で設定している Store のキー名
-    console.log(state.storedText);
+    console.log(state.store);
     return {
         state: state // Key名とvalue名が同じなので return {state} でも可: Object Literal Shorthand
     }

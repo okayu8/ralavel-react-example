@@ -126,7 +126,7 @@ class Main extends Component {
 
 let selector = (state) => {
     // [storedText]というキー名はreducer.jsの最下部で設定している Store のキー名
-    console.log(state.storedText);
+    console.log(state.store);
     return {
         state: state // Key名とvalue名が同じなので return {state} でも可: Object Literal Shorthand
     }
