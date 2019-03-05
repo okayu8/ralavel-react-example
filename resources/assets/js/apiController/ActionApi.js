@@ -3,13 +3,29 @@ export const getTodoAction = () => {
         .then(response => {
             console.log('todos_list')
             console.log('data:' + JSON.stringify(response.data))
-            this.setState({
-                data: response.data.data,
-                nextUrl: response.data.next_page_url,
-                prevUrl: response.data.prev_page_url,
-            })
+            const todos = [
+                {
+                    "data": response.data.data,
+                    "nextURL": response.data.next_page_url,
+                    "prevUrl": response.data.prev_page_url
+                }
+            ]
+            return todos;
         })
         .catch(function (error) {
-            console.log(error)
+            console.log(error);
+        })
+}
+
+export const addToAction = () => {
+    let uri = '/api/todos';
+    axios.post(uri, todo)
+        .then((response) => {
+            console.log(JSON.stringify(response));
+            browserHistory.push('/list');
+            console.log("success");
+        })
+        .catch(function (error) {
+            console.log(error);
         })
 }
