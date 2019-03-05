@@ -13,6 +13,19 @@ export const getTodoAction = () => {
             return todos;
         })
         .catch(function (error) {
-            console.log(error)
+            console.log(error);
+        })
+}
+
+export const addToAction = () => {
+    let uri = '/api/todos';
+    axios.post(uri, todo)
+        .then((response) => {
+            console.log(JSON.stringify(response));
+            browserHistory.push('/list');
+            console.log("success");
+        })
+        .catch(function (error) {
+            console.log(error);
         })
 }
