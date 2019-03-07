@@ -23,10 +23,17 @@ let appReducer = (state = initialState, action) => {
         case CLEAR_TEXT:
             // CLEAR_TEXTアクションが来た場合には空の配列を返して state を初期化する
             return []
+        case ADD_TODO:
+            return handleAddTodo();
         default:
             return state
     }
 };
+
+function handleAddTodo() {
+
+    return true;
+}
 
 // entry.js内部で Provider コンポーネントにセットするデータストア。<Provider>以下でthis.props.state.storedTextの形で state にアクセス可能。
 export const store = combineReducers(
