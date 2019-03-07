@@ -31,7 +31,7 @@ let appReducer = (state = initialState, action) => {
 };
 
 function handleAddTodo() {
-
+    console.log('handleAddTodo!');
     return true;
 }
 
