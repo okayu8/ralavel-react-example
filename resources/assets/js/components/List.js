@@ -92,15 +92,16 @@ class List extends Component {
                 <h1>ToDo List</h1>
 
                 {/* 以下テスト */}
-                <div classNeme="form-inline col-md-5">
-                    <div className="input-group">
-                        <input type='text' ref='input' className="form-control col-sm-2" placeholder="Todo" /><br />
-                        <label className="input-group-btn">
-                            <button className="btn btn-primary" onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
-                            <button className="btn btn-primary" onClick={(e) => this.onClearBtnClicked(e)} >Clear</button>
-                        </label>
-                    </div>
+                {/* 小さいバージョン */}
+                {/* <div className="form-inline col-md-5"> */}
+                <div className="input-group">
+                    <input type='text' ref='input' className="form-control col-sm-2" placeholder="Todo" /><br />
+                    <label className="input-group-btn">
+                        <button className="btn btn-primary" onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
+                        <button className="btn btn-primary" onClick={(e) => this.onClearBtnClicked(e)} >Clear</button>
+                    </label>
                 </div>
+                {/* </div> */}
                 <ul>
                     {
                         //state中のオブジェクトをループさせて<li>要素を描画。stateは selector() メソッドで指定しているものがpropsとして渡ってくる
