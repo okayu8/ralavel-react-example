@@ -60,7 +60,7 @@ class Main extends Component {
                 <nav className="navbar navbar-default">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <a className="navbar-brand" style={{ color: "#000000" }} href="/">ToDoList</a>
+                            <a className="navbar-brand" style={{ color: "#000000" }} href="/">Quick Todo</a>
                             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"
                                 style={{
                                     backgroundColor: "#273036",

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { ADD_TEXT, CLEAR_TEXT, ADD_TODO } from '../constants/App.js';
+import { addToAction } from '../apiController/ActionApi'
 
 /*
   Reducer:
@@ -24,14 +25,21 @@ let appReducer = (state = initialState, action) => {
             // CLEAR_TEXTアクションが来た場合には空の配列を返して state を初期化する
             return []
         case ADD_TODO:
-            return handleAddTodo();
+            console.log("action.text " + action.text);
+            return handleAddTodo(action.text);
         default:
             return state
     }
 };
 
-function handleAddTodo() {
+function handleAddTodo(text) {
     console.log('handleAddTodo!');
+    const todo = {
+        title: text,
+        description: "",
+        limit: 0,
+    }
+    addToAction(todo)
     return true;
 }
 

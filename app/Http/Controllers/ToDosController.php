@@ -25,15 +25,12 @@ class ToDosController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
-            'description' => 'required|max:255',
+            'title' => 'required|max:255'
         ]);
         $todo = new ToDo();
         $user = Auth::user();
         $todo->title = $request->title;
-        $todo->description = $request->description;       
-        //TODO:期限の実装が完了したらコメントアウト
-        //$todo->limit = $request->limit;
+        $todo->description = $request->description ? $request->description : "";       
         $todo->limit = $request->limit ? $request->limit : 0;
         $todo->user_id = $user->id;
         $todo->save();

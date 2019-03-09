@@ -18,8 +18,8 @@ export function clearText() {
     return { type: Actions.CLEAR_TEXT };
 }
 
-export function addTodo() {
-    return { type: Actions.ADD_TODO };
+export function addTodo(newText) {
+    return { type: Actions.ADD_TODO, text: newText };
 }
 
 export function deleteTodo() {
