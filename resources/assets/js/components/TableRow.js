@@ -30,10 +30,10 @@ class TableRow extends Component {
     render() {
         return (
             <tr>
-                <td>
+                <td style={{ width: 35 }}>
                     {this.props.obj.id}
                 </td>
-                <td>
+                <td style={{ width: 60 }}>
                     <button onClick={this.handleSubmitReturn.bind(this)}
                         type="button" className="btn btn-success" aria-label="Left Align">
                         <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
