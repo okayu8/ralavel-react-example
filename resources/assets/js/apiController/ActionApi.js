@@ -17,12 +17,12 @@ export const getTodoAction = () => {
         })
 }
 
-export const addToAction = () => {
+export const addToAction = (todo) => {
     let uri = '/api/todos';
     axios.post(uri, todo)
         .then((response) => {
             console.log(JSON.stringify(response));
-            browserHistory.push('/list');
+            location.reload();
             console.log("success");
         })
         .catch(function (error) {

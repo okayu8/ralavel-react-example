@@ -48,12 +48,12 @@ class TableRow extends Component {
                 <td className="hidden-xs">
                     {this.props.obj.time}
                 </td>
-                <td>
+                <td style={{ width: 65 }}>
                     <Link to={"/todos/" + this.props.obj.id + "/edit"} className="btn btn-primary">
                         <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </Link>
                 </td>
-                <td>
+                <td style={{ width: 65 }}>
                     <button onClick={this.handleSubmitDeletion.bind(this)}
                         type="button" className="btn btn-danger" aria-label="Left Align">
                         <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>

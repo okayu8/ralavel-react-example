@@ -76,6 +76,13 @@ class List extends Component {
         }
     }
 
+    sendCommand(e) {
+        var ENTER = 13;
+        if (e.keyCode == ENTER) {
+            this.onAddBtnClicked()
+        }
+    }
+
     render() {
         const leftButtonStyle = {
             borderRadius: 4,
@@ -98,11 +105,10 @@ class List extends Component {
                     <input type='text' ref='input' className="form-control col-sm-2" placeholder="Todo" /><br />
                     <label className="input-group-btn">
                         <button className="btn btn-primary" onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
-                        <button className="btn btn-primary" onClick={(e) => this.onClearBtnClicked(e)} >Clear</button>
                     </label>
                 </div>
                 {/* </div> */}
-                <ul>
+                {/* <ul>
                     {
                         //state中のオブジェクトをループさせて<li>要素を描画。stateは selector() メソッドで指定しているものがpropsとして渡ってくる
                         this.props.state.store.map((obj) =>
@@ -111,7 +117,7 @@ class List extends Component {
                             </li>
                         )
                     }
-                </ul>
+                </ul> */}
                 {/* 以上テスト */}
 
                 <div className="row">
@@ -169,6 +175,15 @@ class List extends Component {
             </div>
         )
     }
+    // onAddBtnClicked(e) {
+    //     let input = this.refs.input
+    //     let text = input.value.trim()
+    //     if (!text) return alert('何かテキストを入力してください。')
+    //     input.value = ''
+    //     // Appコンポーネントが connect() メソッドでラップされていることによって、dispatchメソッドを呼び出すことが可能になる
+    //     // dispatch() メソッドで ActionCreator である addText() メソッドをラップして呼び出すことによってデータの変更を伝播する
+    //     this.props.dispatch(addText(text))
+    // }
     onAddBtnClicked(e) {
         let input = this.refs.input
         let text = input.value.trim()
@@ -176,7 +191,7 @@ class List extends Component {
         input.value = ''
         // Appコンポーネントが connect() メソッドでラップされていることによって、dispatchメソッドを呼び出すことが可能になる
         // dispatch() メソッドで ActionCreator である addText() メソッドをラップして呼び出すことによってデータの変更を伝播する
-        this.props.dispatch(addText(text))
+        this.props.dispatch(addTodo(text))
     }
 
     //Clear ボタンをクリックした時に呼び出される
@@ -184,6 +199,8 @@ class List extends Component {
         // dispatchメソッドで ActionCreator であるclearText() メソッドをラップして呼び出すことによってデータの変更を伝播する
         this.props.dispatch(clearText())
     }
+
+
 }
 
 let selector = (state) => {
