@@ -21,3 +21,11 @@ export function clearText() {
 export function addTodo() {
     return { type: Actions.ADD_TODO };
 }
+
+export function deleteTodo() {
+    return { type: Actions.DELETE_TODO };
+}
+
+export function editTodo() {
+    return { type: Actions.EDIT_TODO };
+}
