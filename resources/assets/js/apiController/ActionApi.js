@@ -17,7 +17,7 @@ export const getTodoAction = () => {
         })
 }
 
-export const addToAction = (todo) => {
+export const addTodoAction = (todo) => {
     let uri = '/api/todos';
     axios.post(uri, todo)
         .then((response) => {

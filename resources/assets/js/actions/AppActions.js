@@ -22,6 +22,10 @@ export function addTodo(newText) {
     return { type: Actions.ADD_TODO, text: newText };
 }
 
+export function getTodo() {
+    return { type: Actions.GET_TODO }
+}
+
 export function deleteTodo() {
     return { type: Actions.DELETE_TODO };
 }
