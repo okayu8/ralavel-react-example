@@ -15,6 +15,9 @@ class UserTest extends TestCase
      */
     public function testExample()
     {
-        $this->assertTrue(true);
+        $response = $this->get('/');
+
+        //$response->assertStatus(200);
+        $response->assertStatus(302);  // ステータスコードを変更
     }
 }
