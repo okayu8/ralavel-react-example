@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { ADD_TEXT, CLEAR_TEXT, ADD_TODO } from '../constants/App.js';
-import { addToAction } from '../apiController/ActionApi'
+import { addTodoAction, getTodoAction } from '../apiController/ActionApi'
 
 /*
   Reducer:
@@ -27,6 +27,9 @@ let appReducer = (state = initialState, action) => {
         case ADD_TODO:
             console.log("action.text " + action.text);
             return handleAddTodo(action.text);
+        case GET_TODO:
+            console.log("getTodo")
+            return handleGetTodo();
         default:
             return state
     }
@@ -39,8 +42,12 @@ function handleAddTodo(text) {
         description: "",
         limit: 0,
     }
-    addToAction(todo)
+    addTodoAction(todo)
     return true;
+}
+
+function handleGetTodo() {
+    getTodoAction(todo)
 }
 
 // entry.js内部で Provider コンポーネントにセットするデータストア。<Provider>以下でthis.props.state.storedTextの形で state にアクセス可能。
