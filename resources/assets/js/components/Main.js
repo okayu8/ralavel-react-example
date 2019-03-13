@@ -79,7 +79,14 @@ class Main extends Component {
                                 <li><Link to="list" style={{ color: "#791313" }}>Todo</Link></li>
                                 <li><Link to="done" style={{ color: "#961818" }}>Done</Link></li>
                                 {/* <li><Link to="time" style={{ color: "#af1c1c" }}>Time</Link></li> */}
-                                <li><button onClick={() => { this.logout() }}>Logout</button></li>
+                                <li><button
+                                    className="btn"
+                                    style={{
+                                        marginTop: 7,
+                                        marginLeft: 30,
+                                        backgroundColor: "#404050"
+                                    }}
+                                    onClick={() => { this.logout() }}>Logout</button></li>
                             </ul>
                             <div className="collapse navbar-collapse navbar-right">
                                 <div style={{ textAlign: "center" }}>

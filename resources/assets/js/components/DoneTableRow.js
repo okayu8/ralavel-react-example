@@ -43,13 +43,13 @@ class DoneTableRow extends Component {
                 </td>
                 <td>
                     <button onClick={this.handleSubmitReturn.bind(this)}
-                        type="button" className="btn btn-warning" aria-label="Left Align">
+                        type="button" className="btn" style={{ backgroundColor: "#808060", color: "#ffffff" }} aria-label="Left Align">
                         <span className="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
                     </button>
                 </td>
                 <td>
                     <button onClick={this.handleSubmitDeletion.bind(this)}
-                        type="button" className="btn btn-danger" aria-label="Left Align">
+                        type="button" className="btn" style={{ backgroundColor: "#906060", color: "#ffffff" }} aria-label="Left Align">
                         <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </td>

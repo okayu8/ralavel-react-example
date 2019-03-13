@@ -104,7 +104,7 @@ class List extends Component {
                 <div className="input-group">
                     <input type='text' ref='input' className="form-control col-sm-2" placeholder="Todo" /><br />
                     <label className="input-group-btn">
-                        <button className="btn btn-primary" onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
+                        <button className="btn" style={{ backgroundColor: "#606090" }} onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
                     </label>
                 </div>
                 {/* </div> */}
@@ -123,7 +123,7 @@ class List extends Component {
                 <div className="row">
                     <div className="col-md-10"></div>
                     <div className="col-md-2">
-                        <Link to="/create">+ New ToDo</Link>
+                        <Link to="/create" style={{ color: "#c3c6c7" }}>+ New ToDo</Link>
                     </div>
                 </div><br />
                 <ul className="pager">
