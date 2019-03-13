@@ -47,6 +47,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        //TODO:名前半角12文字、全角8文字まででバリデーションする必要あり
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',

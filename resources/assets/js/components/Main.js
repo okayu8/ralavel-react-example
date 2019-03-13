@@ -82,10 +82,20 @@ class Main extends Component {
                                 <li><button onClick={() => { this.logout() }}>Logout</button></li>
                             </ul>
                             <div className="collapse navbar-collapse navbar-right">
-                                <p className="navbar-brand"
+                                <div style={{ textAlign: "center" }}>
+                                    <img src="/images/ヨガのフリー素材.png"
+                                        style={{
+                                            marginTop: 10
+                                        }}
+                                        alt="yoga" width="18" height="18" />
+                                </div>
+                                <p
                                     style={{
                                         color: "#ffffff",
                                         marginBottom: 0,
+                                        fontSize: 8,
+                                        padding: 0,
+                                        textAlign: "center"
                                     }}>{this.state.user_name}</p>
                             </div>
                             <div className="collapse navbar-collapse navbar-right">
