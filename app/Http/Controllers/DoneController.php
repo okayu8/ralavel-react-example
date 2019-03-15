@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ToDo;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class DoneController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     function index(){
-        $todos = DB::table('to_dos') -> where('state', 1) -> paginate(10);
+        $user = Auth::user();
+        //$todos = DB::table('to_dos')->where('state', 1)->where('user_id', $user->id)->paginate(10);
+        $todos = DB::table('to_dos')->where('state', 1)->paginate(10);
         
         return response()->json($todos);
         
@@ -47,9 +55,5 @@ class DoneController extends Controller
         $todo = ToDo::find($id);
         $todo->delete();
         return response()->json();
-    }
-
-    function login(Request $request){
-        $this->middleware('auth')->except(['index', 'show']);
     }
 }
