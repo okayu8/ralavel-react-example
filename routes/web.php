@@ -17,12 +17,13 @@ Route::get('/', function () {
 
 Route::resource('users', 'UserController');
 
-Route::get('logout', 'yourSessionController@logout');
+Route::get('logout', 'YourSessionController@logout');
 
 Route::prefix('api')->group(function () {
-    Route::resource('todos', 'ToDosController', ['only' => ['index', 'store', 'show', 'update', 'destroy', 'login']]);
-    Route::resource('done', 'DoneController', ['only' => ['index', 'show', 'update', 'destroy', 'login']]);
+    Route::resource('todos', 'ToDosController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+    Route::resource('done', 'DoneController', ['only' => ['index', 'show', 'update', 'destroy']]);
     Route::resource('date', 'DateController', ['only' => ['index']]);
+    Route::resource('isLogin', 'CheckController', ['only' => ['index']]);
 });
 
 Auth::routes();

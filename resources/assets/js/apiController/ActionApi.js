@@ -29,3 +29,23 @@ export const addTodoAction = (todo) => {
             console.log(error);
         })
 }
+
+export const isLogin = () => {
+    let uri = '/api/isLogin';
+    var path = location.pathname;
+    console.log(path)
+    axios.get(uri)
+        .then((response) => {
+            if (path === '/login' || path === '/register' || path === '/password/reset') {
+                return true;
+            }
+            else if (response.data === false) {
+                console.log('未ログイン')
+                location.href = '/';
+            }
+            return true;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+}

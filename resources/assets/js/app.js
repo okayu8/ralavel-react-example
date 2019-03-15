@@ -12,8 +12,12 @@ import Time from './components/Time';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { store } from './reducers/reducer'
+import { isLogin } from './apiController/ActionApi'
+
 let applicationStore = createStore(store);
 let rootElement = document.getElementById('example');
+
+isLogin();
 
 render(
     <Provider store={applicationStore}>

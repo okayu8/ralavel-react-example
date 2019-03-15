@@ -3,7 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router';
 import TableRow from './TableRow';
 import { connect } from 'react-redux';
-import { addText, clearText, addTodo } from '../actions/AppActions';
+import { addText, clearText, addTodo, isLogin } from '../actions/AppActions';
+
 
 class List extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class List extends Component {
             offset: false,
         }
     }
+
     componentDidMount() {
         axios.get('/api/todos')
             .then(response => {
