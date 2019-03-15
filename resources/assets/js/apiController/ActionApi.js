@@ -17,13 +17,33 @@ export const getTodoAction = () => {
         })
 }
 
-export const addToAction = () => {
+export const addTodoAction = (todo) => {
     let uri = '/api/todos';
     axios.post(uri, todo)
         .then((response) => {
             console.log(JSON.stringify(response));
-            browserHistory.push('/list');
+            location.reload();
             console.log("success");
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+}
+
+export const isLogin = () => {
+    let uri = '/api/isLogin';
+    var path = location.pathname;
+    console.log(path)
+    axios.get(uri)
+        .then((response) => {
+            if (path === '/login' || path === '/register' || path === '/password/reset') {
+                return true;
+            }
+            else if (response.data === false) {
+                console.log('未ログイン')
+                location.href = '/';
+            }
+            return true;
         })
         .catch(function (error) {
             console.log(error);

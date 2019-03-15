@@ -60,7 +60,7 @@ class Main extends Component {
                 <nav className="navbar navbar-default">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <a className="navbar-brand" style={{ color: "#000000" }} href="/">ToDoList</a>
+                            <a className="navbar-brand" style={{ color: "#000000" }} href="/">Quick Todo</a>
                             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"
                                 style={{
                                     backgroundColor: "#273036",
@@ -79,13 +79,30 @@ class Main extends Component {
                                 <li><Link to="list" style={{ color: "#791313" }}>Todo</Link></li>
                                 <li><Link to="done" style={{ color: "#961818" }}>Done</Link></li>
                                 {/* <li><Link to="time" style={{ color: "#af1c1c" }}>Time</Link></li> */}
-                                <li><button onClick={() => { this.logout() }}>Logout</button></li>
+                                <li><button
+                                    className="btn"
+                                    style={{
+                                        marginTop: 7,
+                                        marginLeft: 30,
+                                        backgroundColor: "#404050"
+                                    }}
+                                    onClick={() => { this.logout() }}>Logout</button></li>
                             </ul>
                             <div className="collapse navbar-collapse navbar-right">
-                                <p className="navbar-brand"
+                                <div style={{ textAlign: "center" }}>
+                                    <img src="/images/ヨガのフリー素材.png"
+                                        style={{
+                                            marginTop: 10
+                                        }}
+                                        alt="yoga" width="18" height="18" />
+                                </div>
+                                <p
                                     style={{
                                         color: "#ffffff",
                                         marginBottom: 0,
+                                        fontSize: 8,
+                                        padding: 0,
+                                        textAlign: "center"
                                     }}>{this.state.user_name}</p>
                             </div>
                             <div className="collapse navbar-collapse navbar-right">

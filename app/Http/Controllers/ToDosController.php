@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ToDosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     //TodoListの参照
     public function index()
     {
@@ -25,15 +30,12 @@ class ToDosController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
-            'description' => 'required|max:255',
+            'title' => 'required|max:255'
         ]);
         $todo = new ToDo();
         $user = Auth::user();
         $todo->title = $request->title;
-        $todo->description = $request->description;       
-        //TODO:期限の実装が完了したらコメントアウト
-        //$todo->limit = $request->limit;
+        $todo->description = $request->description ? $request->description : "";       
         $todo->limit = $request->limit ? $request->limit : 0;
         $todo->user_id = $user->id;
         $todo->save();
@@ -44,7 +46,10 @@ class ToDosController extends Controller
     //Todoの参照
     public function show(Request $request, $id)
     {
+        $user = Auth::user();
         $todo = ToDo::find($id);
+        //TODO:ユーザーのTodoのみ表示できるようにする必要あり
+        //$todo = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->where('id', $id);
 
         return response()->json($todo);
     }
@@ -75,11 +80,5 @@ class ToDosController extends Controller
         $todo->delete();
 
         return response()->json();
-    }
-
-    //TODO:仮置きなので今後削除する。ログインの処理。
-    public function login(Request $request)
-    {
-        $this->middleware('auth')->except(['index', 'show']);
     }
 }

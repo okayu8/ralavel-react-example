@@ -30,12 +30,12 @@ class TableRow extends Component {
     render() {
         return (
             <tr>
-                <td>
+                <td style={{ width: 35 }}>
                     {this.props.obj.id}
                 </td>
-                <td>
+                <td style={{ width: 60 }}>
                     <button onClick={this.handleSubmitReturn.bind(this)}
-                        type="button" className="btn btn-success" aria-label="Left Align">
+                        type="button" className="btn" aria-label="Left Align" style={{ backgroundColor: "#609060", color: "#ffffff" }}>
                         <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     </button>
                 </td>
@@ -48,14 +48,14 @@ class TableRow extends Component {
                 <td className="hidden-xs">
                     {this.props.obj.time}
                 </td>
-                <td>
-                    <Link to={"/todos/" + this.props.obj.id + "/edit"} className="btn btn-primary">
+                <td style={{ width: 65 }}>
+                    <Link to={"/todos/" + this.props.obj.id + "/edit"} className="btn" style={{ backgroundColor: "#606090", color: "#ffffff" }}>
                         <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </Link>
                 </td>
-                <td>
+                <td style={{ width: 65 }}>
                     <button onClick={this.handleSubmitDeletion.bind(this)}
-                        type="button" className="btn btn-danger" aria-label="Left Align">
+                        type="button" className="btn" style={{ backgroundColor: "#906060", color: "#ffffff" }} aria-label="Left Align">
                         <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </td>

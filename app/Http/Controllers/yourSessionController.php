@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class yourSessionController extends Controller
+
+
+class YourSessionController extends Controller
 {
     public function logout()
     {
