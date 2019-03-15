@@ -76,13 +76,6 @@ class List extends Component {
         }
     }
 
-    sendCommand(e) {
-        var ENTER = 13;
-        if (e.keyCode == ENTER) {
-            this.onAddBtnClicked()
-        }
-    }
-
     render() {
         const leftButtonStyle = {
             borderRadius: 4,
