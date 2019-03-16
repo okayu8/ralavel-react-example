@@ -17,8 +17,6 @@ import { isLogin } from './apiController/ActionApi'
 let applicationStore = createStore(store);
 let rootElement = document.getElementById('example');
 
-isLogin();
-
 render(
     <Provider store={applicationStore}>
         <Router history={browserHistory}>

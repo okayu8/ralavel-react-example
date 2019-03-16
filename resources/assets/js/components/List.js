@@ -3,8 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router';
 import TableRow from './TableRow';
 import { connect } from 'react-redux';
-import { addText, clearText, addTodo, isLogin } from '../actions/AppActions';
-
+import { addText, clearText, addTodo } from '../actions/AppActions';
+import { isLogin } from '../apiController/ActionApi'
 
 class List extends Component {
     constructor(props) {
@@ -79,6 +79,7 @@ class List extends Component {
     }
 
     render() {
+        //isLogin();
         const leftButtonStyle = {
             borderRadius: 4,
             backgroundColor: "#586066",

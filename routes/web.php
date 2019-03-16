@@ -11,6 +11,8 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -19,14 +21,13 @@ Route::resource('users', 'UserController');
 
 Route::get('logout', 'YourSessionController@logout');
 
+//ReactRooterがあるためapi.phpへの移行ができない
 Route::prefix('api')->group(function () {
     Route::resource('todos', 'ToDosController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
     Route::resource('done', 'DoneController', ['only' => ['index', 'show', 'update', 'destroy']]);
     Route::resource('date', 'DateController', ['only' => ['index']]);
     Route::resource('isLogin', 'CheckController', ['only' => ['index']]);
 });
-
-Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
