@@ -74,7 +74,7 @@ class Main extends Component {
                         </div>
                         <div className="collapse navbar-collapse" id="defaultNavbar1" >
                             <ul className="nav navbar-nav" >
-                                <li className="/active"><a href="#" style={{ color: "#ffffff" }}>Home</a></li>
+                                <li className="active"><a href="#" style={{ color: "#ffffff" }}>Home</a></li>
                                 <li><Link to="/create" style={{ color: "#4f0d0d" }}>Create</Link></li>
                                 <li><Link to="/list" style={{ color: "#791313" }}>Todo</Link></li>
                                 <li><Link to="/done" style={{ color: "#961818" }}>Done</Link></li>
