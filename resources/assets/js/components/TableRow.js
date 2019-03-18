@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
+import EditModal from './modals/EditModal';
 
 class TableRow extends Component {
     constructor(props) {
@@ -49,9 +50,7 @@ class TableRow extends Component {
                     {this.props.obj.time}
                 </td>
                 <td style={{ width: 65 }}>
-                    <Link to={"/todos/" + this.props.obj.id + "/edit"} className="btn" style={{ backgroundColor: "#606090", color: "#ffffff" }}>
-                        <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </Link>
+                    <EditModal params={this.props.obj.id} />
                 </td>
                 <td style={{ width: 65 }}>
                     <button onClick={this.handleSubmitDeletion.bind(this)}
