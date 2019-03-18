@@ -3,8 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router';
 import TableRow from './TableRow';
 import { connect } from 'react-redux';
-import { addText, clearText, addTodo } from '../actions/AppActions';
-import { isLogin } from '../apiController/ActionApi'
+import { clearText, addTodo } from '../actions/AppActions';
 
 class List extends Component {
     constructor(props) {
@@ -98,9 +97,9 @@ class List extends Component {
                 {/* 小さいバージョン */}
                 {/* <div className="form-inline col-md-5"> */}
                 <div className="input-group">
-                    <input type='text' ref='input' className="form-control col-sm-2" placeholder="Todo" /><br />
+                    <input type='text' ref='input' className="form-control col-sm-2" style={{ zIndex: 0 }} placeholder="Todo" /><br />
                     <label className="input-group-btn">
-                        <button className="btn" style={{ backgroundColor: "#606090" }} onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
+                        <button className="btn" style={{ backgroundColor: "#606090", zIndex: 0 }} onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
                     </label>
                 </div>
                 {/* </div> */}
@@ -121,7 +120,8 @@ class List extends Component {
                     <div className="col-md-2">
                         <Link to="/create" style={{ color: "#c3c6c7" }}>+ New ToDo</Link>
                     </div>
-                </div><br />
+                </div>
+                <br />
                 <ul className="pager">
                     <li className="previous">
                         <button
