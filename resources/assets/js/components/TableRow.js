@@ -6,7 +6,12 @@ import EditModal from './modals/EditModal';
 class TableRow extends Component {
     constructor(props) {
         super(props);
-        this.state = { state: 0 };
+        this.state = {
+            state: 0,
+            hover: false,
+        };
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this);
     }
 
     handleSubmitReturn(event) {
@@ -28,9 +33,15 @@ class TableRow extends Component {
         location.reload();
     }
 
+    onMouseEnter() {
+        this.setState({ hover: true })
+    }
+    onMouseLeave() { this.setState({ hover: false }) }
+
     render() {
+        const trStyle = this.state.hover === true ? { backgroundColor: 'rgb(88, 96, 102)' } : { backgroundColor: '#273036' }
         return (
-            <tr>
+            <tr onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={trStyle}>
                 <td style={{ width: 35 }}>
                     {this.props.obj.id}
                 </td>
