@@ -36,7 +36,7 @@ class ToDosController extends Controller
         $user = Auth::user();
         $todo->title = $request->title;
         $todo->description = $request->description ? $request->description : "";       
-        $todo->limit = $request->limit ? $request->limit : 0;
+        $todo->date_time = $request->limit ? $request->limit : date("Y/m/d H:i:s");
         $todo->user_id = $user->id;
         $todo->save();
 
@@ -59,15 +59,15 @@ class ToDosController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'description' => 'required|max:255',
-            'time' => 'required|max:255',
-            'limit' => 'required|max:255',
+            'description' => 'max:255',
+            'time' => 'max:255',
+            'limit' => 'max:255',
         ]);
         $todo = ToDo::find($id);
         $todo->title = $request->title;
         $todo->description = $request->description;
         $todo->time = $request->time;
-        $todo->limit = $request->limit;
+        $todo->date_time = $request->limit ? $request->limit : date("Y/m/d H:i:s");
         $todo->save();
 
         return response()->json();
