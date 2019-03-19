@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
+import EditModal from './modals/EditModal';
+import moment from 'moment';
 
 class TableRow extends Component {
     constructor(props) {
         super(props);
-        this.state = { state: 0 };
+        this.state = {
+            state: 0,
+            hover: false,
+        };
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this);
     }
 
     handleSubmitReturn(event) {
@@ -27,9 +34,21 @@ class TableRow extends Component {
         location.reload();
     }
 
+    onMouseEnter() {
+        this.setState({ hover: true })
+    }
+    onMouseLeave() {
+        this.setState({ hover: false })
+    }
+
     render() {
+        const trStyle = this.state.hover === true ? { backgroundColor: 'rgb(88, 96, 102)' } : { backgroundColor: '#273036' }
+        var limit = moment(this.props.obj.date_time).format('YYYY-MM-DD');
+        if (limit === 'Invalid date') {
+            limit = 'Not Set'
+        }
         return (
-            <tr>
+            <tr onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={trStyle}>
                 <td style={{ width: 35 }}>
                     {this.props.obj.id}
                 </td>
@@ -45,13 +64,11 @@ class TableRow extends Component {
                 <td className="hidden-sm hidden-xs">
                     {this.props.obj.description}
                 </td>
-                <td className="hidden-xs">
-                    {this.props.obj.time}
+                <td className="hidden-xs" style={{ width: 128 }}>
+                    {limit}
                 </td>
                 <td style={{ width: 65 }}>
-                    <Link to={"/todos/" + this.props.obj.id + "/edit"} className="btn" style={{ backgroundColor: "#606090", color: "#ffffff" }}>
-                        <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </Link>
+                    <EditModal params={this.props.obj.id} />
                 </td>
                 <td style={{ width: 65 }}>
                     <button onClick={this.handleSubmitDeletion.bind(this)}

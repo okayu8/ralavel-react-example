@@ -54,7 +54,7 @@ class Edit extends Component {
             title: this.state.title,
             description: this.state.description,
             time: this.state.time,
-            limit: this.state.limit,
+            limit: this.state.date_time,
         }
         let uri = '/api/todos/' + this.props.params.id
         axios.patch(uri, products).then((response) => {
@@ -66,10 +66,6 @@ class Edit extends Component {
             <div>
                 <h1>Edit ToDo</h1>
                 <div className="row">
-                    <div className="col-md-10"></div>
-                    <div className="col-md-2">
-                        <Link to="/list">&lt;&lt; Back to List</Link>
-                    </div>
                 </div>
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className="form-group">
