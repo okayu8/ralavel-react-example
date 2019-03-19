@@ -32,6 +32,7 @@ class List extends Component {
                 console.log(error)
             })
     }
+
     nextPage() {
         axios.get(this.state.nextUrl)
             .then(response => {
@@ -146,7 +147,7 @@ class List extends Component {
                             <td>Check</td>
                             <td>Title</td>
                             <td className="hidden-sm hidden-xs">Description</td>
-                            <td className="hidden-xs">Time(m)</td>
+                            <td className="hidden-xs">Limit</td>
                             <td>Actions</td>
                         </tr>
                     </thead>

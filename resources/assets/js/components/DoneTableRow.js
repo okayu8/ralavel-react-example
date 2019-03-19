@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
 
-class DoneTableRow extends Component {
+export default class DoneTableRow extends Component {
     constructor(props) {
         super(props);
-        this.state = { state: 1 };
+        this.state = {
+            state: 1,
+            hover: false,
+        };
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this);
     }
 
     handleSubmitReturn(event) {
@@ -26,9 +31,18 @@ class DoneTableRow extends Component {
         //browserHistory.push('/')
         location.reload();
     }
+
+    onMouseEnter() {
+        this.setState({ hover: true })
+    }
+    onMouseLeave() {
+        this.setState({ hover: false })
+    }
+
     render() {
+        const trStyle = this.state.hover === true ? { backgroundColor: 'rgb(88, 96, 102)' } : { backgroundColor: '#273036' }
         return (
-            <tr>
+            <tr onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={trStyle}>
                 <td>
                     {this.props.obj.id}
                 </td>
@@ -57,5 +71,3 @@ class DoneTableRow extends Component {
         )
     }
 }
-
-export default DoneTableRow;

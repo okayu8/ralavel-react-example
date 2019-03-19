@@ -54,7 +54,7 @@ class Edit extends Component {
             title: this.state.title,
             description: this.state.description,
             time: this.state.time,
-            limit: this.state.limit,
+            limit: this.state.date_time,
         }
         let uri = '/api/todos/' + this.props.params.id
         axios.patch(uri, products).then((response) => {

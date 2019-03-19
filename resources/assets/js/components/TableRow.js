@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
 import EditModal from './modals/EditModal';
+import moment from 'moment';
 
 class TableRow extends Component {
     constructor(props) {
@@ -36,10 +37,16 @@ class TableRow extends Component {
     onMouseEnter() {
         this.setState({ hover: true })
     }
-    onMouseLeave() { this.setState({ hover: false }) }
+    onMouseLeave() {
+        this.setState({ hover: false })
+    }
 
     render() {
         const trStyle = this.state.hover === true ? { backgroundColor: 'rgb(88, 96, 102)' } : { backgroundColor: '#273036' }
+        var limit = moment(this.props.obj.date_time).format('YYYY-MM-DD');
+        if (limit === 'Invalid date') {
+            limit = 'Not Set'
+        }
         return (
             <tr onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={trStyle}>
                 <td style={{ width: 35 }}>
@@ -58,7 +65,7 @@ class TableRow extends Component {
                     {this.props.obj.description}
                 </td>
                 <td className="hidden-xs">
-                    {this.props.obj.time}
+                    {limit}
                 </td>
                 <td style={{ width: 65 }}>
                     <EditModal params={this.props.obj.id} />

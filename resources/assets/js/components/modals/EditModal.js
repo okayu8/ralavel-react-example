@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import axios from 'axios';
 import { Link } from 'react-router';
+import moment from 'moment';
 
 const customStyles = {
     content: {
@@ -21,7 +22,11 @@ export default class EditModal extends React.Component {
             title: '',
             description: '',
             time: '',
-            limit: ''
+            limit: '',
+            year: 0,
+            month: '',
+            day: '',
+            notSet: '',
         };
 
         this.openModal = this.openModal.bind(this);
@@ -32,11 +37,30 @@ export default class EditModal extends React.Component {
     componentDidMount() {
         axios.get("/api/todos/" + this.props.params)
             .then(response => {
+                var year;
+                var month;
+                var day;
+                var notSet = '';
+                if (moment(response.data.date_time).format('YYYY') === 'Invalid date') {
+                    var nowDate = new Date();
+                    year = Number(moment(nowDate).format('YYYY'));
+                    month = moment(nowDate).format('MM');
+                    day = moment(nowDate).format('DD');
+                    notSet = '(Not Set)';
+                } else {
+                    year = Number(moment(response.data.date_time).format('YYYY'));
+                    month = moment(response.data.date_time).format('MM');
+                    day = moment(response.data.date_time).format('DD');
+                }
                 this.setState({
                     title: response.data.title,
                     description: response.data.description,
                     time: response.data.time,
-                    limit: response.data.limit,
+                    limit: response.data.date_time,
+                    year: year,
+                    month: month,
+                    day: day,
+                    notSet: notSet,
                 });
             })
             .catch(function (error) {
@@ -63,14 +87,33 @@ export default class EditModal extends React.Component {
             limit: e.target.value
         })
     }
+    handleChangeYear(e) {
+        this.setState({
+            year: Number(e.target.value)
+        })
+    }
+    handleChangeMonth(e) {
+        this.setState({
+            month: e.target.value
+        })
+    }
+    handleChangeDay(e) {
+        this.setState({
+            day: e.target.value
+        })
+    }
 
     handleSubmit(event) {
         event.preventDefault();
+        var selectYear = String(this.state.year) === '0' ? '0000' : String(this.state.year);
+        var selectMonth = this.state.month;
+        var selectDay = this.state.day;
+        var selectLimit = selectYear + '-' + selectMonth + '-' + selectDay + ' 00:00:00';
         const products = {
             title: this.state.title,
             description: this.state.description,
             time: this.state.time,
-            limit: this.state.limit,
+            limit: selectLimit,
         }
         let uri = '/api/todos/' + this.props.params
         axios.patch(uri, products).then((response) => {
@@ -92,6 +135,10 @@ export default class EditModal extends React.Component {
     }
 
     render() {
+        var years = [];
+        for (var yearI = 0; yearI < 10; yearI++) {
+            years[yearI] = String(this.state.year + yearI - 4);
+        }
         return (
             <div>
                 <button onClick={this.openModal} className="btn" style={openModalStyle}>
@@ -131,16 +178,34 @@ export default class EditModal extends React.Component {
 
                             <div className="form-group">
                                 <label name="product_price">Description</label>
-                                <input type="text" className="form-control"
+                                <textarea type="text" className="form-control"
                                     value={this.state.description}
                                     onChange={this.handleChangeDesc.bind(this)} />
                             </div>
 
                             <div className="form-group">
-                                <label name="product_price">Limit</label>
-                                <input type="text" className="form-control"
-                                    value={this.state.limit}
-                                    onChange={this.handleChangeLimit.bind(this)} />
+                                <label name="product_price">Limit {this.state.notSet}</label>
+                                <div className="form-inline">
+                                    <select name="datetime" className="form-control"
+                                        defaultValue={this.state.notSet !== '' ? '0' : this.state.year} style={{ marginRight: 10 }}
+                                        onChange={this.handleChangeYear.bind(this)} >
+                                        {years.map(d => <option key={d} value={d}>{d}</option>)}
+                                        <option key='notSet' value='0'>----</option>
+                                    </select>
+                                    <select name="datetime" className="form-control"
+                                        defaultValue={this.state.notSet !== '' ? '00' : this.state.month} style={{ marginRight: 10 }}
+                                        onChange={this.handleChangeMonth.bind(this)} >
+                                        {allMonth.map(d => <option key={d} value={d}>{d}</option>)}
+                                        <option key='notSet' value='00'>--</option>
+                                    </select>
+                                    <select name="datetime" className="form-control"
+                                        defaultValue={this.state.notSet !== '' ? '00' : this.state.day} style={{ marginRight: 10 }}
+                                        onChange={this.handleChangeDay.bind(this)} >
+                                        {allDay.map(d => <option key={d} value={d}>{d}</option>)}
+                                        <option key='notSet' value='00'>--</option>
+                                    </select>
+                                </div>
+
                             </div>
 
                             <div className="form-group">
@@ -160,6 +225,17 @@ export default class EditModal extends React.Component {
         );
     }
 }
+const allMonth = [
+    "01", "02", "03", "04", "05", "06",
+    "07", "08", "09", "10", "11", "12",
+]
+
+const allDay = [
+    "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+    "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+    "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
+    "31",
+]
 
 const closeStyle = {
     fontSize: 20,
