@@ -37,11 +37,12 @@ export default class EditModal extends React.Component {
     componentDidMount() {
         axios.get("/api/todos/" + this.props.params)
             .then(response => {
+                var date_time_fmt = moment(response.data.date_time).format('YYYY');
                 var year;
                 var month;
                 var day;
                 var notSet = '';
-                if (moment(response.data.date_time).format('YYYY') === 'Invalid date') {
+                if (date_time_fmt === 'Invalid date' || date_time_fmt === '0000') {
                     var nowDate = new Date();
                     year = Number(moment(nowDate).format('YYYY'));
                     month = moment(nowDate).format('MM');
@@ -161,12 +162,6 @@ export default class EditModal extends React.Component {
                         </div>
                         <br />
                         <h1>Edit ToDo</h1>
-                        <div className="row">
-                            <div className="col-md-10"></div>
-                            <div className="col-md-2">
-                                <Link to="/list">&lt;&lt; Back to List</Link>
-                            </div>
-                        </div>
                         <form onSubmit={this.handleSubmit.bind(this)}>
                             <div className="form-group">
                                 <label>Title</label>
