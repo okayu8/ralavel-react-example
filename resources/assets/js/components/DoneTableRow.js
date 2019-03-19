@@ -55,13 +55,13 @@ export default class DoneTableRow extends Component {
                 <td className="hidden-xs">
                     {this.props.obj.time}
                 </td>
-                <td>
+                <td style={{ width: 65 }}>
                     <button onClick={this.handleSubmitReturn.bind(this)}
                         type="button" className="btn" style={{ backgroundColor: "#808060", color: "#ffffff" }} aria-label="Left Align">
                         <span className="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
                     </button>
                 </td>
-                <td>
+                <td style={{ width: 65 }}>
                     <button onClick={this.handleSubmitDeletion.bind(this)}
                         type="button" className="btn" style={{ backgroundColor: "#906060", color: "#ffffff" }} aria-label="Left Align">
                         <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>

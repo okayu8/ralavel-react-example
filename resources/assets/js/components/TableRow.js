@@ -64,7 +64,7 @@ class TableRow extends Component {
                 <td className="hidden-sm hidden-xs">
                     {this.props.obj.description}
                 </td>
-                <td className="hidden-xs">
+                <td className="hidden-xs" style={{ width: 128 }}>
                     {limit}
                 </td>
                 <td style={{ width: 65 }}>
