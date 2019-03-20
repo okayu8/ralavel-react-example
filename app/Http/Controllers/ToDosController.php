@@ -16,10 +16,26 @@ class ToDosController extends Controller
     }
 
     //TodoListの参照
-    public function index()
+    public function index(Request $request)
     {
         //Todoを10件に分割して取得
         //$todos = ToDo::all();
+        $mode = $request->sortMode;
+        if($mode == 'nearLimit')
+        {
+            $user = Auth::user();
+            $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->paginate(10);
+        }
+        elseif($mode == 'farLimit')
+        {
+            $user = Auth::user();
+            $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->paginate(10);
+        }
+        elseif($mode == 'today')
+        {
+            $user = Auth::user();
+            $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->paginate(10);
+        }
         $user = Auth::user();
         $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->paginate(10);
 
