@@ -16,30 +16,32 @@ class ToDosController extends Controller
     }
 
     //TodoListの参照
-    public function index(Request $request)
+    public function index()
     {
         //Todoを10件に分割して取得
         //$todos = ToDo::all();
-        $mode = $request->sortMode;
-        if($mode == 'nearLimit')
-        {
-            $user = Auth::user();
-            $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->paginate(10);
-        }
-        elseif($mode == 'farLimit')
-        {
-            $user = Auth::user();
-            $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->paginate(10);
-        }
-        elseif($mode == 'today')
-        {
-            $user = Auth::user();
-            $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->paginate(10);
-        }
         $user = Auth::user();
         $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->paginate(10);
 
         return response()->json($todos);
+    }
+
+    public function sort(Request $request)
+    {
+        $mode = $request->sortMode;
+        $todos = ToDo::all();
+        if($mode == 'nearLimit')
+        {
+            
+        }
+        elseif($mode == 'farLimit')
+        {
+
+        }
+        elseif($mode == 'today')
+        {
+
+        }
     }
 
     //Todoの作成
