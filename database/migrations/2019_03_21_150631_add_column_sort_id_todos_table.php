@@ -16,6 +16,10 @@ class AddColumnSortIdTodosTable extends Migration
         Schema::table('to_dos', function (Blueprint $table) {
             $table->integer('sort_id');
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('sort_mode');
+        });
     }
 
     /**
@@ -27,6 +31,10 @@ class AddColumnSortIdTodosTable extends Migration
     {
         Schema::table('to_dos', function (Blueprint $table) {
             $table->dropColumn('sort_id');
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('sort_mode');
         });
     }
 }

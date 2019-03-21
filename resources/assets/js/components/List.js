@@ -79,6 +79,23 @@ class List extends Component {
         }
     }
 
+    changeSortMode() {
+        this.setState({ sortMode: this.state.sortMode === 'nearLimit' ? '' : 'nearLimit' });
+        console.log(this.state.sortMode);
+        const sortMode = {
+            sortMode: 'nearLimit',
+        }
+        axios.post('/api/todos/sort', sortMode)
+            .then((response) => {
+                console.log(JSON.stringify(response));
+                location.reload();
+                console.log("success");
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
     render() {
         //isLogin();
         const leftButtonStyle = {
@@ -95,16 +112,16 @@ class List extends Component {
             <div>
                 <h1>ToDo List</h1>
 
-                {/* 以下テスト */}
-                {/* 小さいバージョン */}
-                {/* <div className="form-inline col-md-5"> */}
                 <div className="input-group">
                     <input type='text' ref='input' className="form-control col-sm-2" style={{ zIndex: 0 }} placeholder="Todo" /><br />
                     <label className="input-group-btn">
                         <button className="btn" style={{ backgroundColor: "#606090", zIndex: 0 }} onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
                     </label>
                 </div>
-                {/* </div> */}
+
+                {/* 以下テスト */}
+                <button onClick={() => { this.changeSortMode() }}>{this.state.sortMode}</button>
+
                 {/* <ul>
                     {
                         //state中のオブジェクトをループさせて<li>要素を描画。stateは selector() メソッドで指定しているものがpropsとして渡ってくる
@@ -115,7 +132,6 @@ class List extends Component {
                         )
                     }
                 </ul> */}
-                {/* 以上テスト */}
 
                 <div className="row">
                     <div className="col-md-10"></div>

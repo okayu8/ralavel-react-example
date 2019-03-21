@@ -29,19 +29,36 @@ class ToDosController extends Controller
     public function sort(Request $request)
     {
         $mode = $request->sortMode;
-        $todos = ToDo::all();
-        if($mode == 'nearLimit')
-        {
-            
-        }
-        elseif($mode == 'farLimit')
-        {
+        try{
+            if($mode == 'nearLimit'){
+                $todos = DB::table('to_tos')
+                    ->orderBy('date_time', 'asc')
+                    ->get();
+                $iterator = 0;
+                foreach($todos as $t){
+                    if($t->date_time === '0000-00-00 00:00:00'){
+                        $t->sort_id = 9999;
+                    }
+                    $t->date_time = $iterator;
+                    $iterator++;
+                    $t->save();
+                }
 
-        }
-        elseif($mode == 'today')
-        {
+            }elseif($mode == 'farLimit'){
 
+            }else{
+                $todos = ToDo::all();
+
+                foreach($todos as $t){
+                    $t->sort_id = $t->id;
+                    $t->save();
+                }
+                
+            }
+        }catch(Exception $e){
+            return response()->json('server error '.$e);
         }
+        return response()->json();
     }
 
     //Todoの作成
