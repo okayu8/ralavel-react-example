@@ -14,6 +14,7 @@ class List extends Component {
             nextUrl: null,
             prevUrl: null,
             offset: false,
+            sortMode: '',
         }
     }
 
