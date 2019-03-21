@@ -27,8 +27,8 @@ Route::prefix('api')->group(function () {
     Route::resource('done', 'DoneController', ['only' => ['index', 'show', 'update', 'destroy']]);
     Route::resource('date', 'DateController', ['only' => ['index']]);
     Route::resource('isLogin', 'CheckController', ['only' => ['index']]);
-    Route::post('todos', 'ToDosController@sort');
 });
+Route::post('/api/todos/sort', 'ToDosController@sort');
 
 
 Route::get('/', 'HomeController@index')->name('home');
