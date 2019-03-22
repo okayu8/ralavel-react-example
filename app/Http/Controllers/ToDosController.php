@@ -31,7 +31,7 @@ class ToDosController extends Controller
         $mode = $request->sortMode;
         try{
             if($mode == 'nearLimit'){
-                $todos = DB::table('to_tos')
+                $todos = DB::table('to_dos')
                     ->orderBy('date_time', 'asc')
                     ->get();
                 $iterator = 0;
