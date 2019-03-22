@@ -54,7 +54,17 @@ export const changeSortMode = (sortMode) => {
     axios.post('/api/todos/sort', sortMode)
         .then((response) => {
             location.reload();
-            console.log("success");
+            console.log("change sort mode success");
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+}
+
+export const changeUserSortMode = (sortMode) => {
+    axios.post('/api/user/sort', sortMode)
+        .then((response) => {
+            console.log("change user sortmode success");
         })
         .catch(function (error) {
             console.log(error);
