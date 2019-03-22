@@ -11,6 +11,7 @@ class Main extends Component {
             date: null,
             user_id: null,
             user_name: null,
+            sortMode: '',
         }
     }
 
@@ -29,6 +30,7 @@ class Main extends Component {
                 this.setState({
                     user_id: response.data.id,
                     user_name: response.data.name,
+                    sortMode: response.data.sort_mode,
                 })
             })
             .catch(function (error) {

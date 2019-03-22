@@ -14,5 +14,11 @@ class UserController extends Controller
         $user = Auth::user();   #ログインユーザー情報を取得します。
         return response()->json($user);
     }
+
+    public function sortMode(Request $request){
+        $user = Auth::user();
+        $user->sort_mode = $request->sortMode;
+        $user->save();
+    }
 }
 

@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import TableRow from './TableRow';
 import { connect } from 'react-redux';
 import { clearText, addTodo } from '../actions/AppActions';
-import { changeSortMode } from '../apiController/ActionApi'
+import { changeSortMode, changeUserSortMode } from '../apiController/ActionApi'
 
 class List extends Component {
     constructor(props) {
@@ -33,6 +33,17 @@ class List extends Component {
             .catch(function (error) {
                 console.log(error)
             })
+
+        axios.get('/users')
+            .then(response => {
+                console.log('users response' + response.data.sort_mode)
+                this.setState({
+                    sortMode: response.data.sort_mode,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
     nextPage() {
@@ -52,6 +63,7 @@ class List extends Component {
     }
 
     prevPage() {
+        this.setState({ sortMode: this.state.sortMode === '' ? 'nearLimit' : '' })
         axios.get(this.state.prevUrl)
             .then(response => {
                 console.log('todos_list')
@@ -81,11 +93,11 @@ class List extends Component {
     }
 
     changeSortMode(e) {
-        this.setState({ sortMode: this.state.sortMode === 'nearLimit' ? '' : 'nearLimit' });
-        console.log(e.target.value);
         const sortMode = {
             sortMode: e.target.value,
         }
+
+        changeUserSortMode(sortMode);
         changeSortMode(sortMode);
     }
 
@@ -94,12 +106,11 @@ class List extends Component {
         const leftButtonStyle = {
             borderRadius: 4,
             backgroundColor: "#586066",
-            float: "left",
+
         }
         const rightButtonStyle = {
             borderRadius: 4,
             backgroundColor: "#586066",
-            float: "right",
         }
         return (
             <div>
@@ -130,23 +141,24 @@ class List extends Component {
                     </div>
                 </div>
                 <br />
-
-                <ul className="pager">
-                    <li className="previous">
-                        <button
-                            onClick={() => { this.prevPage() }}
-                            style={leftButtonStyle}>
-                            <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
-                        </button>
-                    </li>
-                    <li className="next">
-                        <button
-                            onClick={() => { this.nextPage() }}
-                            style={rightButtonStyle}>
-                            <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
-                        </button>
-                    </li>
-                </ul>
+                <div className="row">
+                    <ul className="pager" style={{ margin: 10 }}>
+                        <li className="previous" style={{ float: "left", paddingLeft: 15 }}>
+                            <button
+                                onClick={() => { this.prevPage() }}
+                                style={leftButtonStyle}>
+                                <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+                            </button>
+                        </li>
+                        <li className="next" style={{ float: "right", paddingRight: 15 }}>
+                            <button
+                                onClick={() => { this.nextPage() }}
+                                style={rightButtonStyle}>
+                                <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
 
                 <div className="form-group" style={{ float: 'right', maxWidth: 300 }}>
                     <label name="sort_mode">Sort Mode</label>
@@ -154,7 +166,7 @@ class List extends Component {
                         defaultValue={this.state.sortMode}
                         onChange={this.changeSortMode.bind(this)} >
                         <option key='id' value=''>Todos ID</option>
-                        <option key='deadline' value='nearLimit'>Deadline</option>
+                        <option key='nearLimit' value='nearLimit'>Deadline</option>
                     </select>
                 </div>
 
@@ -173,21 +185,25 @@ class List extends Component {
                         {this.tabRow()}
                     </tbody>
                 </table>
-                <ul className="pager">
-                    <li className="previous">
-                        <button
-                            onClick={() => { this.prevPage() }}
-                            style={leftButtonStyle}>
-                            <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
-                        </button></li>
-                    <li className="next"><button
-                        onClick={() => { this.nextPage() }}
-                        style={rightButtonStyle}>
-                        <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
-                    </button>
-                    </li>
-                </ul>
+                <div className="row">
+                    <ul className="pager" style={{ margin: 10 }}>
+                        <li className="previous" style={{ float: "left", paddingLeft: 15 }}>
+                            <button
+                                onClick={() => { this.prevPage() }}
+                                style={leftButtonStyle}>
+                                <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+                            </button></li>
+                        <li className="next" style={{ float: "right", paddingRight: 15 }}>
+                            <button
+                                onClick={() => { this.nextPage() }}
+                                style={rightButtonStyle}>
+                                <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div >
+
         )
     }
     // onAddBtnClicked(e) {
