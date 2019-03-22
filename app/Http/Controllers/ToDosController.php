@@ -21,7 +21,7 @@ class ToDosController extends Controller
         //Todoを10件に分割して取得
         //$todos = ToDo::all();
         $user = Auth::user();
-        $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->paginate(10);
+        $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->orderBy('sort_id', 'asc')->paginate(10);
 
         return response()->json($todos);
     }
@@ -31,17 +31,20 @@ class ToDosController extends Controller
         $mode = $request->sortMode;
         try{
             if($mode == 'nearLimit'){
-                $todos = DB::table('to_dos')
-                    ->orderBy('date_time', 'asc')
-                    ->get();
+                
+                $todos = ToDo::orderBy('date_time', 'asc')->get();
+                
                 $iterator = 0;
                 foreach($todos as $t){
+                    error_log(json_encode($t));
                     if($t->date_time === '0000-00-00 00:00:00'){
                         $t->sort_id = 9999;
+                    }else{
+                        $t->sort_id = $iterator;
+                        $iterator++;
                     }
-                    $t->date_time = $iterator;
-                    $iterator++;
-                    $t->save();
+                    
+                    $t->save(); 
                 }
 
             }elseif($mode == 'farLimit'){
