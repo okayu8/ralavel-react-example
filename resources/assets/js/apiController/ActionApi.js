@@ -49,3 +49,14 @@ export const isLogin = () => {
             console.log(error);
         })
 }
+
+export const changeSortMode = (sortMode) => {
+    axios.post('/api/todos/sort', sortMode)
+        .then((response) => {
+            location.reload();
+            console.log("success");
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+}

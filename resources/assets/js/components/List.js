@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import TableRow from './TableRow';
 import { connect } from 'react-redux';
 import { clearText, addTodo } from '../actions/AppActions';
+import { changeSortMode } from '../apiController/ActionApi'
 
 class List extends Component {
     constructor(props) {
@@ -79,21 +80,13 @@ class List extends Component {
         }
     }
 
-    changeSortMode() {
+    changeSortMode(e) {
         this.setState({ sortMode: this.state.sortMode === 'nearLimit' ? '' : 'nearLimit' });
-        console.log(this.state.sortMode);
+        console.log(e.target.value);
         const sortMode = {
-            sortMode: 'nearLimit',
+            sortMode: e.target.value,
         }
-        axios.post('/api/todos/sort', sortMode)
-            .then((response) => {
-                console.log(JSON.stringify(response));
-                location.reload();
-                console.log("success");
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        changeSortMode(sortMode);
     }
 
     render() {
@@ -119,9 +112,6 @@ class List extends Component {
                     </label>
                 </div>
 
-                {/* 以下テスト */}
-                <button onClick={() => { this.changeSortMode() }}>{this.state.sortMode}</button>
-
                 {/* <ul>
                     {
                         //state中のオブジェクトをループさせて<li>要素を描画。stateは selector() メソッドで指定しているものがpropsとして渡ってくる
@@ -140,6 +130,7 @@ class List extends Component {
                     </div>
                 </div>
                 <br />
+
                 <ul className="pager">
                     <li className="previous">
                         <button
@@ -156,6 +147,16 @@ class List extends Component {
                         </button>
                     </li>
                 </ul>
+
+                <div className="form-group" style={{ float: 'right', maxWidth: 300 }}>
+                    <label name="sort_mode">Sort Mode</label>
+                    <select name="sort_mode" className="form-control"
+                        defaultValue={this.state.sortMode}
+                        onChange={this.changeSortMode.bind(this)} >
+                        <option key='id' value=''>Todos ID</option>
+                        <option key='deadline' value='nearLimit'>Deadline</option>
+                    </select>
+                </div>
 
                 <table className="table table-hover">
                     <thead>
@@ -186,7 +187,7 @@ class List extends Component {
                     </button>
                     </li>
                 </ul>
-            </div>
+            </div >
         )
     }
     // onAddBtnClicked(e) {
