@@ -19,7 +19,7 @@ class List extends Component {
         }
     }
 
-    conponentWillMount() {
+    componentDidMount() {
         axios.get('/users')
             .then(response => {
                 console.log('users response' + response.data.sort_mode)
@@ -30,9 +30,7 @@ class List extends Component {
             .catch(function (error) {
                 console.log(error)
             })
-    }
 
-    componentDidMount() {
         axios.get('/api/todos')
             .then(response => {
                 console.log('todos_list')
@@ -65,7 +63,6 @@ class List extends Component {
     }
 
     prevPage() {
-        this.setState({ sortMode: this.state.sortMode === 'id' ? 'nearLimit' : 'id' })
         axios.get(this.state.prevUrl)
             .then(response => {
                 console.log('todos_list')
@@ -165,11 +162,10 @@ class List extends Component {
                 </div>
 
                 <div className="form-group" style={{ float: 'right', maxWidth: 300 }}>
-                    <label name="sort_mode">Sort Mode</label>
+                    <label name="sort_mode">Sort Mode : {this.state.sortMode === 'id' ? 'Todos ID' : 'Deadline'}</label>
                     <select name="sort_mode" className="form-control"
-                        defaultValue={this.state.sortMode}
                         onChange={this.changeSortMode.bind(this)} >
-                        <option key='empty' value=''>{this.state.sortMode === 'id' ? 'Todos ID' : 'Deadline'}</option>
+                        <option key='empty' value=''>Select Mode</option>
                         <option key='id' value='id'>Todos ID</option>
                         <option key='nearLimit' value='nearLimit'>Deadline</option>
                     </select>
