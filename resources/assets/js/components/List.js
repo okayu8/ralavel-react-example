@@ -19,6 +19,19 @@ class List extends Component {
         }
     }
 
+    conponentWillMount() {
+        axios.get('/users')
+            .then(response => {
+                console.log('users response' + response.data.sort_mode)
+                this.setState({
+                    sortMode: response.data.sort_mode,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
     componentDidMount() {
         axios.get('/api/todos')
             .then(response => {
@@ -28,17 +41,6 @@ class List extends Component {
                     data: response.data.data,
                     nextUrl: response.data.next_page_url,
                     prevUrl: response.data.prev_page_url,
-                })
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
-
-        axios.get('/users')
-            .then(response => {
-                console.log('users response' + response.data.sort_mode)
-                this.setState({
-                    sortMode: response.data.sort_mode,
                 })
             })
             .catch(function (error) {
@@ -63,7 +65,7 @@ class List extends Component {
     }
 
     prevPage() {
-        this.setState({ sortMode: this.state.sortMode === '' ? 'nearLimit' : '' })
+        this.setState({ sortMode: this.state.sortMode === 'id' ? 'nearLimit' : 'id' })
         axios.get(this.state.prevUrl)
             .then(response => {
                 console.log('todos_list')
@@ -116,6 +118,8 @@ class List extends Component {
             <div>
                 <h1>ToDo List</h1>
 
+                {this.state.sortMode}
+
                 <div className="input-group">
                     <input type='text' ref='input' className="form-control col-sm-2" style={{ zIndex: 0 }} placeholder="Todo" /><br />
                     <label className="input-group-btn">
@@ -165,7 +169,8 @@ class List extends Component {
                     <select name="sort_mode" className="form-control"
                         defaultValue={this.state.sortMode}
                         onChange={this.changeSortMode.bind(this)} >
-                        <option key='id' value=''>Todos ID</option>
+                        <option key='empty' value=''>{this.state.sortMode === 'id' ? 'Todos ID' : 'Deadline'}</option>
+                        <option key='id' value='id'>Todos ID</option>
                         <option key='nearLimit' value='nearLimit'>Deadline</option>
                     </select>
                 </div>

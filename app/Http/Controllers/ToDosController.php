@@ -47,8 +47,6 @@ class ToDosController extends Controller
                     $t->save(); 
                 }
 
-            }elseif($mode == 'farLimit'){
-
             }else{
                 $todos = ToDo::all();
 
