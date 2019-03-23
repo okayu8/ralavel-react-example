@@ -24,7 +24,7 @@
         {{ csrf_field() }}
         <div id="example"></div>
         <script src="{{asset('js/app.js')}}" >
-            var csrfToken = '{{csrf_token()}}'
+            var csrfToken = "{{csrf_token()}}"
         </script>
     </body>
 </html>
