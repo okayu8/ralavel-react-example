@@ -211,7 +211,10 @@ export default class EditModal extends React.Component {
                             </div>
 
                             <div className="form-group">
-                                <button className="btn btn-primary">Update</button>
+                                <button className="btn" style={{
+                                    backgroundColor: "#606090",
+                                    color: "#ffffff",
+                                }}>Update</button>
                             </div>
                         </form>
                     </div>

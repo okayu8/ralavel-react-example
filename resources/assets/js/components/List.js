@@ -114,9 +114,6 @@ class List extends Component {
         return (
             <div>
                 <h1>ToDo List</h1>
-
-                {this.state.sortMode}
-
                 <div className="input-group">
                     <input type='text' ref='input' className="form-control col-sm-2" style={{ zIndex: 0 }} placeholder="Todo" /><br />
                     <label className="input-group-btn">
@@ -162,7 +159,7 @@ class List extends Component {
                 </div>
 
                 <div className="form-group" style={{ float: 'right', maxWidth: 300 }}>
-                    <label name="sort_mode">Sort Mode : {this.state.sortMode === 'id' ? 'Todos ID' : 'Deadline'}</label>
+                    <label name="sort_mode">Sort Order : {this.state.sortMode === 'id' ? 'Todos ID' : 'Deadline'}</label>
                     <select name="sort_mode" className="form-control"
                         onChange={this.changeSortMode.bind(this)} >
                         <option key='empty' value=''>Select Mode</option>
