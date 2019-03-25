@@ -117,4 +117,12 @@ class ToDosController extends Controller
 
         return response()->json();
     }
+
+    public function search (Request $request)
+    {
+        $word = $request->word;
+        $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->where('title', $word)
+        ->orderBy('sort_id', 'asc')->paginate(10);
+
+    }
 }
