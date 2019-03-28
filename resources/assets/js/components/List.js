@@ -100,6 +100,10 @@ class List extends Component {
         changeSortMode(sortMode);
     }
 
+    searchMode(e) {
+
+    }
+
     render() {
         //isLogin();
         const leftButtonStyle = {
@@ -157,7 +161,17 @@ class List extends Component {
                         </li>
                     </ul>
                 </div>
-
+                <div className="form-group" style={{ float: 'left', maxWidth: 200 }}>
+                    <label name="sort_mode">Search</label>
+                    <div className="input-group">
+                        <input type='text' ref='input' className="form-control col-sm-2" style={{ zIndex: 0 }} placeholder="Todo" /><br />
+                        <label className="input-group-btn">
+                            <button className="btn" style={{ backgroundColor: "#906090", zIndex: 0 }} onClick={(e) => this.searchMode(e)}>
+                                <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </label>
+                    </div>
+                </div>
                 <div className="form-group" style={{ float: 'right', maxWidth: 300 }}>
                     <label name="sort_mode">Sort Order : {this.state.sortMode === 'id' ? 'Todos ID' : 'Deadline'}</label>
                     <select name="sort_mode" className="form-control"
