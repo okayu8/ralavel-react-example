@@ -36,7 +36,6 @@ class ToDosController extends Controller
                 
                 $iterator = 0;
                 foreach($todos as $t){
-                    error_log(json_encode($t));
                     if($t->date_time === '0000-00-00 00:00:00'){
                         $t->sort_id = 9999;
                     }else{
@@ -120,9 +119,11 @@ class ToDosController extends Controller
 
     public function search (Request $request)
     {
+        $user = Auth::user();
         $word = $request->word;
-        $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->where('title', $word)
+        $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->where('title', 'LIKE', '%'.$word.'%')
         ->orderBy('sort_id', 'asc')->paginate(10);
 
+        return response()->json($todos);
     }
 }
