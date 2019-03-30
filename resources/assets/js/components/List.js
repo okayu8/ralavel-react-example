@@ -101,7 +101,26 @@ class List extends Component {
     }
 
     searchMode(e) {
+        let input = this.refs.input
+        let text = input.value.trim()
+        console.log(text)
 
+        const word = {
+            word: text,
+        }
+        axios.post('/api/todos/search', word)
+            .then(response => {
+                console.log('todos_list')
+                console.log('data:' + JSON.stringify(response.data))
+                this.setState({
+                    data: response.data.data,
+                    nextUrl: response.data.next_page_url,
+                    prevUrl: response.data.prev_page_url,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
     render() {
