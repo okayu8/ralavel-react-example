@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import TableRow from './TableRow';
 import { connect } from 'react-redux';
 import { clearText, addTodo } from '../actions/AppActions';
+import { changeSortMode, changeUserSortMode } from '../apiController/ActionApi'
 
 class List extends Component {
     constructor(props) {
@@ -14,10 +15,24 @@ class List extends Component {
             nextUrl: null,
             prevUrl: null,
             offset: false,
+            sortMode: '',
+            createText: '',
+            searchText: '',
         }
     }
 
     componentDidMount() {
+        axios.get('/users')
+            .then(response => {
+                console.log('users response' + response.data.sort_mode)
+                this.setState({
+                    sortMode: response.data.sort_mode,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+
         axios.get('/api/todos')
             .then(response => {
                 console.log('todos_list')
@@ -78,32 +93,63 @@ class List extends Component {
         }
     }
 
+    changeSortMode(e) {
+        const sortMode = {
+            sortMode: e.target.value,
+        }
+
+        changeUserSortMode(sortMode);
+        changeSortMode(sortMode);
+    }
+
+    searchMode() {
+        let text = this.state.searchText;
+        const word = {
+            word: text,
+        }
+        axios.post('/api/todos/search', word)
+            .then(response => {
+                console.log('todos_list')
+                console.log('data:' + JSON.stringify(response.data))
+                this.setState({
+                    data: response.data.data,
+                    nextUrl: response.data.next_page_url,
+                    prevUrl: response.data.prev_page_url,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
     render() {
         //isLogin();
         const leftButtonStyle = {
             borderRadius: 4,
             backgroundColor: "#586066",
-            float: "left",
+
         }
         const rightButtonStyle = {
             borderRadius: 4,
             backgroundColor: "#586066",
-            float: "right",
         }
         return (
             <div>
                 <h1>ToDo List</h1>
-
-                {/* 以下テスト */}
-                {/* 小さいバージョン */}
-                {/* <div className="form-inline col-md-5"> */}
                 <div className="input-group">
-                    <input type='text' ref='input' className="form-control col-sm-2" style={{ zIndex: 0 }} placeholder="Todo" /><br />
+                    <input type='text' ref='input'
+                        className="form-control col-sm-2"
+                        style={{ zIndex: 0 }}
+                        placeholder="Todo"
+                        onChange={(e) => { this.setState({ createText: e.target.value }) }}
+                    /><br />
                     <label className="input-group-btn">
-                        <button className="btn" style={{ backgroundColor: "#606090", zIndex: 0 }} onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
+                        <button className="btn"
+                            style={{ backgroundColor: "#606090", zIndex: 0 }}
+                            onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
                     </label>
                 </div>
-                {/* </div> */}
+
                 {/* <ul>
                     {
                         //state中のオブジェクトをループさせて<li>要素を描画。stateは selector() メソッドで指定しているものがpropsとして渡ってくる
@@ -114,7 +160,6 @@ class List extends Component {
                         )
                     }
                 </ul> */}
-                {/* 以上テスト */}
 
                 <div className="row">
                     <div className="col-md-10"></div>
@@ -123,22 +168,52 @@ class List extends Component {
                     </div>
                 </div>
                 <br />
-                <ul className="pager">
-                    <li className="previous">
-                        <button
-                            onClick={() => { this.prevPage() }}
-                            style={leftButtonStyle}>
-                            <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
-                        </button>
-                    </li>
-                    <li className="next">
-                        <button
-                            onClick={() => { this.nextPage() }}
-                            style={rightButtonStyle}>
-                            <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
-                        </button>
-                    </li>
-                </ul>
+                <div className="row">
+                    <ul className="pager" style={{ margin: 10 }}>
+                        <li className="previous" style={{ float: "left", paddingLeft: 15 }}>
+                            <button
+                                onClick={() => { this.prevPage() }}
+                                style={leftButtonStyle}>
+                                <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+                            </button>
+                        </li>
+                        <li className="next" style={{ float: "right", paddingRight: 15 }}>
+                            <button
+                                onClick={() => { this.nextPage() }}
+                                style={rightButtonStyle}>
+                                <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div className="form-group" style={{ float: 'left', maxWidth: 200 }}>
+                    <label name="sort_mode">Search</label>
+                    <div className="input-group">
+                        <input type='text'
+                            ref='input'
+                            className="form-control col-sm-2"
+                            style={{ zIndex: 0 }}
+                            placeholder="Todo"
+                            onChange={(e) => { this.setState({ searchText: e.target.value }) }}
+                        /><br />
+                        <label className="input-group-btn">
+                            <button className="btn"
+                                style={{ backgroundColor: "#906090", zIndex: 0 }}
+                                onClick={() => { this.searchMode() }}>
+                                <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </label>
+                    </div>
+                </div>
+                <div className="form-group" style={{ float: 'right', maxWidth: 300 }}>
+                    <label name="sort_mode">Sort Order : {this.state.sortMode === 'id' ? 'Todos ID' : 'Deadline'}</label>
+                    <select name="sort_mode" className="form-control"
+                        onChange={this.changeSortMode.bind(this)} >
+                        <option key='empty' value=''>Select Mode</option>
+                        <option key='id' value='id'>Todos ID</option>
+                        <option key='nearLimit' value='nearLimit'>Deadline</option>
+                    </select>
+                </div>
 
                 <table className="table table-hover">
                     <thead>
@@ -155,21 +230,25 @@ class List extends Component {
                         {this.tabRow()}
                     </tbody>
                 </table>
-                <ul className="pager">
-                    <li className="previous">
-                        <button
-                            onClick={() => { this.prevPage() }}
-                            style={leftButtonStyle}>
-                            <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
-                        </button></li>
-                    <li className="next"><button
-                        onClick={() => { this.nextPage() }}
-                        style={rightButtonStyle}>
-                        <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
-                    </button>
-                    </li>
-                </ul>
-            </div>
+                <div className="row">
+                    <ul className="pager" style={{ margin: 10 }}>
+                        <li className="previous" style={{ float: "left", paddingLeft: 15 }}>
+                            <button
+                                onClick={() => { this.prevPage() }}
+                                style={leftButtonStyle}>
+                                <span className="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+                            </button></li>
+                        <li className="next" style={{ float: "right", paddingRight: 15 }}>
+                            <button
+                                onClick={() => { this.nextPage() }}
+                                style={rightButtonStyle}>
+                                <span className="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div >
+
         )
     }
     // onAddBtnClicked(e) {
@@ -182,10 +261,9 @@ class List extends Component {
     //     this.props.dispatch(addText(text))
     // }
     onAddBtnClicked(e) {
-        let input = this.refs.input
-        let text = input.value.trim()
+        let text = this.state.createText
         if (!text) return alert('何かテキストを入力してください。')
-        input.value = ''
+        //input.value = ''
         // Appコンポーネントが connect() メソッドでラップされていることによって、dispatchメソッドを呼び出すことが可能になる
         // dispatch() メソッドで ActionCreator である addText() メソッドをラップして呼び出すことによってデータの変更を伝播する
         this.props.dispatch(addTodo(text))

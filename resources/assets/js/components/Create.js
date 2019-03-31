@@ -60,7 +60,10 @@ class Create extends Component {
                     </div>
                     <br />
                     <div className="form-group">
-                        <button className="btn btn-primary">Create</button>
+                        <button className="btn" style={{
+                            backgroundColor: "#606090",
+                            color: "#ffffff",
+                        }}>Create</button>
                     </div>
                 </form>
             </div>

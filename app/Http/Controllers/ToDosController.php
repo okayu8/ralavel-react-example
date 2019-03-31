@@ -21,9 +21,44 @@ class ToDosController extends Controller
         //Todoを10件に分割して取得
         //$todos = ToDo::all();
         $user = Auth::user();
-        $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->paginate(10);
+        $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->orderBy('sort_id', 'asc')->paginate(10);
 
         return response()->json($todos);
+    }
+
+    public function sort(Request $request)
+    {
+        $mode = $request->sortMode;
+        try{
+            if($mode == 'nearLimit'){
+                
+                $todos = ToDo::orderBy('date_time', 'asc')->get();
+                
+                $iterator = 0;
+                foreach($todos as $t){
+                    if($t->date_time === '0000-00-00 00:00:00'){
+                        $t->sort_id = 9999;
+                    }else{
+                        $t->sort_id = $iterator;
+                        $iterator++;
+                    }
+                    
+                    $t->save(); 
+                }
+
+            }else{
+                $todos = ToDo::all();
+
+                foreach($todos as $t){
+                    $t->sort_id = $t->id;
+                    $t->save();
+                }
+                
+            }
+        }catch(Exception $e){
+            return response()->json('server error '.$e);
+        }
+        return response()->json();
     }
 
     //Todoの作成
@@ -80,5 +115,15 @@ class ToDosController extends Controller
         $todo->delete();
 
         return response()->json();
+    }
+
+    public function search (Request $request)
+    {
+        $user = Auth::user();
+        $word = $request->word;
+        $todos = DB::table('to_dos')->where('state', 0)->where('user_id', $user->id)->where('title', 'LIKE', '%'.$word.'%')
+        ->orderBy('sort_id', 'asc')->paginate(10);
+
+        return response()->json($todos);
     }
 }

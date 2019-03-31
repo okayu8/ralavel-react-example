@@ -28,6 +28,10 @@ Route::prefix('api')->group(function () {
     Route::resource('date', 'DateController', ['only' => ['index']]);
     Route::resource('isLogin', 'CheckController', ['only' => ['index']]);
 });
+Route::post('/api/todos/sort', 'ToDosController@sort');
+Route::post('/api/todos/search', 'ToDosController@search');
+Route::post('/api/user/sort', 'UserController@sortMode');
+
 
 Route::get('/', 'HomeController@index')->name('home');
 

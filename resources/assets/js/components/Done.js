@@ -30,6 +30,7 @@ class Done extends Component {
                 console.log(error)
             })
     }
+
     nextPage() {
         axios.get(this.state.nextUrl)
             .then(response => {
@@ -93,7 +94,7 @@ class Done extends Component {
                 <div className="row">
                     <div className="col-md-10"></div>
                     <div className="col-md-2">
-                        <Link to="/create">+ New ToDo</Link>
+                        <Link to="/create" style={{ color: "#c3c6c7" }}>+ New ToDo</Link>
                     </div>
                 </div><br />
                 <ul className="pager">
