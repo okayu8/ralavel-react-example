@@ -30,6 +30,7 @@ class Done extends Component {
                 console.log(error)
             })
     }
+
     nextPage() {
         axios.get(this.state.nextUrl)
             .then(response => {

@@ -16,6 +16,8 @@ class List extends Component {
             prevUrl: null,
             offset: false,
             sortMode: '',
+            createText: '',
+            searchText: '',
         }
     }
 
@@ -100,6 +102,26 @@ class List extends Component {
         changeSortMode(sortMode);
     }
 
+    searchMode() {
+        let text = this.state.searchText;
+        const word = {
+            word: text,
+        }
+        axios.post('/api/todos/search', word)
+            .then(response => {
+                console.log('todos_list')
+                console.log('data:' + JSON.stringify(response.data))
+                this.setState({
+                    data: response.data.data,
+                    nextUrl: response.data.next_page_url,
+                    prevUrl: response.data.prev_page_url,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
     render() {
         //isLogin();
         const leftButtonStyle = {
@@ -115,9 +137,16 @@ class List extends Component {
             <div>
                 <h1>ToDo List</h1>
                 <div className="input-group">
-                    <input type='text' ref='input' className="form-control col-sm-2" style={{ zIndex: 0 }} placeholder="Todo" /><br />
+                    <input type='text' ref='input'
+                        className="form-control col-sm-2"
+                        style={{ zIndex: 0 }}
+                        placeholder="Todo"
+                        onChange={(e) => { this.setState({ createText: e.target.value }) }}
+                    /><br />
                     <label className="input-group-btn">
-                        <button className="btn" style={{ backgroundColor: "#606090", zIndex: 0 }} onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
+                        <button className="btn"
+                            style={{ backgroundColor: "#606090", zIndex: 0 }}
+                            onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
                     </label>
                 </div>
 
@@ -157,7 +186,25 @@ class List extends Component {
                         </li>
                     </ul>
                 </div>
-
+                <div className="form-group" style={{ float: 'left', maxWidth: 200 }}>
+                    <label name="sort_mode">Search</label>
+                    <div className="input-group">
+                        <input type='text'
+                            ref='input'
+                            className="form-control col-sm-2"
+                            style={{ zIndex: 0 }}
+                            placeholder="Todo"
+                            onChange={(e) => { this.setState({ searchText: e.target.value }) }}
+                        /><br />
+                        <label className="input-group-btn">
+                            <button className="btn"
+                                style={{ backgroundColor: "#906090", zIndex: 0 }}
+                                onClick={() => { this.searchMode() }}>
+                                <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </label>
+                    </div>
+                </div>
                 <div className="form-group" style={{ float: 'right', maxWidth: 300 }}>
                     <label name="sort_mode">Sort Order : {this.state.sortMode === 'id' ? 'Todos ID' : 'Deadline'}</label>
                     <select name="sort_mode" className="form-control"
@@ -214,10 +261,9 @@ class List extends Component {
     //     this.props.dispatch(addText(text))
     // }
     onAddBtnClicked(e) {
-        let input = this.refs.input
-        let text = input.value.trim()
+        let text = this.state.createText
         if (!text) return alert('何かテキストを入力してください。')
-        input.value = ''
+        //input.value = ''
         // Appコンポーネントが connect() メソッドでラップされていることによって、dispatchメソッドを呼び出すことが可能になる
         // dispatch() メソッドで ActionCreator である addText() メソッドをラップして呼び出すことによってデータの変更を伝播する
         this.props.dispatch(addTodo(text))
