@@ -39,12 +39,27 @@ return [
             'prefix' => '',
         ],
 
+        // 'mysql' => [
+        //     'driver'    => 'mysql',
+        //     'host'      => env('DB_HOST', 'okayu8-dbserver.cvr6oxe5pysh.ap-northeast-1.rds.amazonaws.com'),
+        //     'database'  => env('DB_DATABASE', 'laravel_react'),
+        //     'username'  => env('DB_USERNAME', 'okayu8'),
+        //     'password'  => env('DB_PASSWORD', 'gamabunta'),
+        //     //MAMPのUnixSocketを追記
+        //     // 'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
+        //     'charset'   => 'utf8',
+        //     'collation' => 'utf8_unicode_ci',
+        //     'prefix'    => '',
+        //     'strict'    => false,
+        // ],
+
+        //local setting
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'okayu8-dbserver.cvr6oxe5pysh.ap-northeast-1.rds.amazonaws.com'),
+            'host'      => env('DB_HOST', 'localhost'),
             'database'  => env('DB_DATABASE', 'laravel_react'),
-            'username'  => env('DB_USERNAME', 'okayu8'),
-            'password'  => env('DB_PASSWORD', 'gamabunta'),
+            'username'  => env('DB_USERNAME', 'root'),
+            'password'  => env('DB_PASSWORD', 'root'),
             //MAMPのUnixSocketを追記
             // 'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
             'charset'   => 'utf8',
