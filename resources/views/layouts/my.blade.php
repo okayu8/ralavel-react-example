@@ -27,7 +27,7 @@
                             <span class="icon-bar" style=""></span>
                         </button>
                     </div>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div className="collapse navbar-collapse" id="defaultNavbar1" >
                         {{-- Navbarの右側 --}}
                         <ul class="nav navbar-nav">
                             {{-- 投稿ボタン --}}
