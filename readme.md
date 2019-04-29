@@ -16,8 +16,8 @@ Frontend : JavaScript / React.js
 - ログイン画面  
 - TODO作成画面  
 - TODO編集画面  
-- TODO画面  
-- DONE画面  
+- TODO一覧画面  
+- DONE一覧画面  
 
 
 ### 機能  
