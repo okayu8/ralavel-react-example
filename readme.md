@@ -14,10 +14,10 @@ Frontend : JavaScript / React.js
 
 ### 項目  
 - ログイン画面  
-- TODO作成画面  
-- TODO編集画面  
-- TODO画面  
-- DONE画面  
+- Todo作成画面  
+- Todo編集画面  
+- Todo一覧画面  
+- Done一覧画面  
 
 
 ### 機能  
