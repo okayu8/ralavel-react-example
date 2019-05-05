@@ -19,5 +19,10 @@ class UserTest extends TestCase
 
         //$response->assertStatus(200);
         $response->assertStatus(302);  // ステータスコードを変更
+
+        //resustory test
+        //login test 
+        //forget password test
+        
     }
 }
