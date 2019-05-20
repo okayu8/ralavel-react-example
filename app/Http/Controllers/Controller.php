@@ -15,7 +15,7 @@ class Controller extends BaseController
     {
 
         //キャッシュが残るので 毎回 view ファイルを削除する
-        $success = \File::cleanDirectory(storage_path()."/framework/views/");
+        // $success = \File::cleanDirectory(storage_path()."/framework/views/");
 
         if(\Request::ip() == "61.27.15.240"){
 
