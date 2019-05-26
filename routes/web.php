@@ -13,9 +13,10 @@
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::resource('users', 'UserController');
 
@@ -31,9 +32,6 @@ Route::prefix('api')->group(function () {
 Route::post('/api/todos/sort', 'ToDosController@sort');
 Route::post('/api/todos/search', 'ToDosController@search');
 Route::post('/api/user/sort', 'UserController@sortMode');
-
-
-Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/{any?}', function () {
     return view('welcome');
